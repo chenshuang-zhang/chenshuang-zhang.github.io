@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SVHalluc.">
+  <meta name="keywords" content="Diffusion models, robustness evaluation, vision-language models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</h1>
+          <h3 class="title is-3 publication-title", style="color: red;"> CVPR 2026</h3>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chenshuang-zhang.github.io/">Chenshuang Zhang</a>,</span>
+            <span class="author-block">
+              <a href="https://scene-the-ella.github.io/">Kyeong Seon Kim</a>,</span>
+            <span class="author-block">
+              <a href="https://cxliu0.github.io/">Chengxin Liu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://ami.kaist.ac.kr/members/tae-hyun-oh">Tae-Hyun Oh</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            KAIST
+            <!-- <span class="author-block"><sup>1</sup>KAIST</span>
+            <span class="author-block"><sup>2</sup>University of Michigan</span>
+            <span class="author-block"><sup>3</sup> McGill University</span>
+            <span class="author-block"><sup>4</sup>MILA</span> -->
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://chenshuang-zhang.github.io/projects/svhalluc/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://chenshuang-zhang.github.io/projects/svhalluc/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/11zTXmg5yNjZwi8bwc541M1h5tPAVGeQc/view?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+                </span>
+
+            <!-- Youtube Link. -->
+            <!-- <span class="link-block">
+            <a href="https://www.youtube.com/watch?v=CQm2oDfCvR8"
+                class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="fab fa-youtube"></i>
+              </span>
+              <span>Youtube</span>
+              </a>
+            </span>             -->
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="content">
+          <img src="static/images/teaser4.png" alt="Teaser Figure" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Abstract">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Abstract</h3>
+    <div class="content has-text-justified">
+      <p>
+      Unlike environmental sounds that mainly indicate event occurrence (e.g., dog barking), human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large-language models (LLMs) in video understanding, it remains unexplored whether current models can accurately align speech contents with corresponding visual signals.  In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs. To systematically study this, we introduce SVHalluc, the first comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. Our benchmark diagnoses speech–vision hallucinations from two complementary perspectives: semantic and temporal. Experimental results demonstrate that most advanced audio-visual LLMs struggle with aligning speech content with corresponding visual signals.  Our work uncovers a fundamental limitation of current audio-visual LLMs and highlights the need for speech-aware and grounded speech-video perception and comprehension.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Method">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered"> SVHalluc: Cross-modal Speech-Vision Hallucination Evaluation Benchmark</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content" id='mira_image'>
+          <img src="static/images/task2.png" width="800px" height="2100px" />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+          We introduce SVHalluc, the first comprehensive benchmark specifically designed to evaluate speech–vision hallucination in audio-visual LLMs. SVHalluc evaluates whether audio-visual LLMs can accurately integrate speech and visual information along two complementary dimensions: semantic and temporal.  In the semantic hallucination tasks, we aim to evaluate whether the models can correctly find the correspondence between speech content with the visual scene, avoiding hallucinating non-existing entities (e.g., objects or events). In the temporal hallucination tasks, we aim to evaluate whether the model could identify when the narrated events occur visually relatively to the moment when the person is speaking.  We design three complementary coarse-to-fine tasks for each hallucination type, resulting in six tasks in total. SVHalluc systematically exposes failure modes in both semantic and temporal understanding, providing a rigorous and comprehensive evaluation of speech–vision hallucination in current audio–visual LLMs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="Results">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Results: SOTA Model Accuracy Drops by up to 60%</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content" id='mira_image'>
+          <img src="static/images/imagenet.png" width="800px" height="2100px" />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Model accuracy on ImageNet vs. ImageNet-D. Each data point corresponds to one tested model. The plots reveal that there is a significant accuracy drop from ImageNet to our new test set ImageNet-D.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="section" id="Comparison">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Visualizations: Higher Quality and Diverse Variations</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content" id='mira_image'>
+          <img src="static/images/test_set_comparison.png" width="800px" height="2100px" />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Compared to prior synthetic test sets, ImageNet-D achieves higher image quality and diverse variations. ImageNet-D can be scaled efficiently to include more categories and nuisances.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <section class="section" id="DatasetSamples">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Visualizations: CLIP Fails on ImageNet-D</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content" id='mira_image'>
+          <img src="static/images/imagenet_d_samples.png" width="800px" height="2100px" />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            For each group of images, the ground truth label is color green, while the predicted categories by CLIP (ViT-L/14) on each image are in black.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="section" id="DatasetSamplesFailure">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Visualizations: MiniGPT-4 and LLaVa-1.5 Fail</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="content" id='mira_image'>
+          <img src="static/images/minigpt_llava1_5.png" width="800px" height="2100px" />
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Both MiniGPT-4 and LLaVa-1.5 fail to recognize the object on ImageNet-D, highlighting the challenges the dataset poses for these models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section" id="Citation">
+  <div class="container is-max-desktop content">
+    <!-- <h3 class="title">Citation</h3> -->
+    <pre><code>@InProceedings{Zhang_2026_CVPR,
+      author    = {Chenshuang Zhang, Kyeong Seon Kim, Chengxin Liu and Tae-Hyun Oh},
+      title     = {SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models},
+      booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+      month     = {June},
+      year      = {2026},
+      <!-- pages     = {21752-21762} -->
+  }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+          Thanks to <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for the source code of the nice website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
