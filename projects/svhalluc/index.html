@@ -645,10 +645,7 @@
     <h2 class="title is-2 has-text-centered section-title">Abstract</h2>
     <div class="content has-text-justified">
       <p>
-        Unlike environmental sounds that mainly indicate event occurrence, human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large language models in video understanding, it remains underexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs by confusing what is said with what is visually supported.
-      </p>
-      <p>
-        We introduce <strong>SVHalluc</strong>, a comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. SVHalluc diagnoses hallucinations from two complementary perspectives: <strong>semantic grounding</strong>, which asks what speech content is visible, and <strong>temporal grounding</strong>, which asks when narrated actions visually occur. Experimental results show that current audio-visual LLMs still struggle to ground speech in vision, revealing a fundamental limitation of cross-modal speech-video understanding.
+        Despite the success of audio-visual large-language models (LLMs), they can produce plausible but ungrounded outputs, termed hallucination. Existing benchmarks focus on environmental sounds (e.g., dog barking) to indicate event occurrence. In contrast, human speech carries fundamentally different, rich semantics and temporal structures, yet it remains unexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs. To systematically study this, we introduce SVHalluc, the first comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. Our benchmark diagnoses speech–vision hallucinations from two critical and complementary aspects: semantic and temporal. Experimental results demonstrate that state-of-the-art open-source audio-visual LLMs struggle with aligning speech content with corresponding visual signals, with a near-random accuracy on multiple tasks. In contrast,  Gemini-2.5 Pro significantly outperforms the open-source models. Our analysis suggests that their failures stem from limited ability in cross-modality understanding,  despite strong performance in single-modality perception. Our work uncovers a new and fundamental limitation of current audio-visual LLMs and highlights the need for speech-grounded video comprehension. 
       </p>
     </div>
   </div>
@@ -668,21 +665,21 @@
             <div class="task-icon"><i class="fas fa-eye"></i></div>
             <div>
               <h3 class="title is-4" style="margin-bottom:0.1rem;">Semantic Tasks</h3>
-              <p class="mini-note">What speech content is visible?</p>
+              <p class="mini-note">What speech content is visually supported?</p>
             </div>
           </div>
           <div class="task-list">
             <div class="task-row">
               <div class="task-abbr">GSA</div>
-              <div><strong>Global Semantic Alignment</strong><span>Video-level semantic matching.</span></div>
+              <div><strong>Global Semantic Alignment</strong><span>Video-level semantic matching</span></div>
             </div>
             <div class="task-row">
               <div class="task-abbr">FGSA</div>
-              <div><strong>Fine-Grained Semantic Alignment</strong><span>Object-level semantic grounding.</span></div>
+              <div><strong>Fine-Grained Semantic Alignment</strong><span>Object-level semantic grounding</span></div>
             </div>
             <div class="task-row">
               <div class="task-abbr">CMSB</div>
-              <div><strong>Cross-Modal Semantic Binding</strong><span>Event-level semantic matching.</span></div>
+              <div><strong>Cross-Modal Semantic Binding</strong><span>Event-level semantic matching</span></div>
             </div>
           </div>
         </div>
@@ -694,7 +691,7 @@
             <div class="task-icon"><i class="fas fa-clock"></i></div>
             <div>
               <h3 class="title is-4" style="margin-bottom:0.1rem;">Temporal Tasks</h3>
-              <p class="mini-note">When does the narrated action visually occur?</p>
+              <p class="mini-note">When narrated events occur visually?</p>
             </div>
           </div>
           <div class="task-list">
@@ -708,7 +705,7 @@
             </div>
             <div class="task-row">
               <div class="task-abbr">CMTB</div>
-              <div><strong>Cross-Modal Temporal Binding</strong><span>Distinguishing speech from the current video.</span></div>
+              <div><strong>Cross-Modal Temporal Binding</strong><span>Distinguishing speech content from current visual events.</span></div>
             </div>
           </div>
         </div>
@@ -822,10 +819,6 @@
       <div class="column is-3-desktop is-6-tablet">
         <div class="stat-card"><div class="stat-number">983</div><div class="stat-label">temporal samples</div></div>
       </div>
-    </div>
-
-    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
-      <span class="highlight-red">Semantic tasks</span> test whether spoken content is visually supported, while <span class="highlight-blue">temporal tasks</span> test when narrated events visually occur.
     </div>
   </div>
 </section>
