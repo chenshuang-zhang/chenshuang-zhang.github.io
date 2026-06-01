@@ -5,7 +5,7 @@
   <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
   <meta name="keywords" content="speech-vision hallucination, audio-visual LLMs, multimodal hallucination, speech grounding, video understanding, benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</title>
+  <title>SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -456,6 +456,36 @@
     .highlight-red { color: var(--sv-red); font-weight: 800; }
     .highlight-blue { color: var(--sv-blue); font-weight: 800; }
 
+
+    .motivation-figure {
+      padding: 0.6rem;
+      background: #ffffff;
+    }
+    .motivation-summary-card {
+      height: 100%;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      padding: 1.1rem;
+    }
+    .motivation-summary-item {
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+      margin-bottom: 0.9rem;
+    }
+    .motivation-summary-item:last-child { margin-bottom: 0; }
+    .motivation-summary-item.prior { border-left: 5px solid #7a8795; }
+    .motivation-summary-item.ours { border-left: 5px solid var(--sv-red); background: var(--sv-red-soft); }
+    .motivation-summary-item.challenge { border-left: 5px solid var(--sv-blue); background: var(--sv-blue-soft); }
+    .motivation-summary-item p {
+      color: var(--sv-muted);
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+    }
+
     @media screen and (max-width: 768px) {
       .publication-title { font-size: 2rem !important; }
       .section { padding-top: 3rem; padding-bottom: 3rem; }
@@ -566,49 +596,46 @@
   </div>
 </section>
 
-<section class="section is-white" id="teaser">
+<section class="section is-white" id="motivation">
   <div class="container is-max-desktop">
-    <div class="figure-box">
-      <img src="static/images/teaser4.png" alt="SVHalluc teaser: speech content can induce hallucination when models confuse speech with visual evidence.">
-    </div>
-    <p class="caption has-text-centered">
-      Speech can mention more than what is visible. SVHalluc evaluates whether audio-visual LLMs can distinguish speech content from visual evidence.
-    </p>
-  </div>
-</section>
-
-<section class="section" id="motivation">
-  <div class="container is-max-desktop">
-    <h2 class="title is-2 has-text-centered section-title">Motivation</h2>
+    <h2 class="title is-2 has-text-centered section-title">Motivation: Speech Content ≠ Visual Evidence</h2>
     <p class="section-kicker has-text-centered">
-      Existing audio-visual hallucination studies often focus on environmental sounds as indicators of event occurrence. Human speech is different: it contains rich semantic and temporal references that may not be visually supported.
+      Existing audio-visual hallucination studies mainly test whether environmental sound events are visually present. SVHalluc studies a more challenging setting: speech can mention objects, actions, and temporal references that are not supported by the current video.
     </p>
 
-    <div class="columns is-variable is-5">
-      <div class="column">
-        <div class="motivation-card sound">
-          <span class="motivation-label">Prior setting</span>
-          <h4 class="title is-4">Environmental sound events</h4>
-          <p>
-            A model hears a sound event, such as <strong>cat meowing</strong>, and may incorrectly infer that the corresponding object is visible in the video.
-          </p>
-          <div class="contrast-line gray">Sound event ≠ visual evidence</div>
+    <div class="columns is-variable is-5 is-vcentered">
+      <div class="column is-7">
+        <div class="figure-box motivation-figure">
+          <img src="static/images/motivation_poster.png" alt="Motivation figure comparing environmental sound hallucination with speech-induced hallucination.">
         </div>
+        <p class="caption has-text-centered">
+          Unlike environmental sounds, speech carries rich semantic and temporal content. Models should not treat what is said as what is seen.
+        </p>
       </div>
-      <div class="column">
-        <div class="motivation-card speech">
-          <span class="motivation-label">Our setting</span>
-          <h4 class="title is-4">Speech-induced hallucination</h4>
-          <p>
-            A speaker may mention an object, action, or event that is not currently visible. Models should not treat what is said as what is seen.
-          </p>
-          <div class="contrast-line red">Speech content ≠ visual evidence</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
-      SVHalluc asks a simple but underexplored question: can audio-visual LLMs <span class="red">ground speech</span> in <span class="blue">visual evidence</span>?
+      <div class="column is-5">
+        <div class="motivation-summary-card">
+          <div class="motivation-summary-item prior">
+            <span class="motivation-label">Prior benchmarks</span>
+            <h4 class="title is-5">Sound event hallucination</h4>
+            <p>Prior work often asks whether a heard environmental sound, such as a cat meowing, corresponds to a visible event.</p>
+            <div class="contrast-line gray">Sound Event ≠ Seeing</div>
+          </div>
+
+          <div class="motivation-summary-item ours">
+            <span class="motivation-label">SVHalluc</span>
+            <h4 class="title is-5">Speech-induced hallucination</h4>
+            <p>Speech can mention non-visible content. For example, a model may hear “egg” and hallucinate that an egg is visible.</p>
+            <div class="contrast-line red">Speech Content ≠ Seeing</div>
+          </div>
+
+          <div class="motivation-summary-item challenge">
+            <span class="motivation-label">New challenge</span>
+            <h4 class="title is-5">Ground speech in vision</h4>
+            <p>SVHalluc evaluates whether AV-LLMs can verify spoken content against visual evidence, rather than simply relying on the transcript.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
