@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models.">
+  <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
   <meta name="keywords" content="speech-vision hallucination, audio-visual LLMs, multimodal hallucination, speech grounding, video understanding, benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</title>
@@ -77,17 +77,89 @@
       letter-spacing: -0.03em;
       line-height: 1.05;
     }
-    .venue-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border-radius: 999px;
-      padding: 0.45rem 0.85rem;
-      background: #fff4f4;
-      color: var(--sv-red);
-      font-weight: 700;
+    .venue-panel {
+      display: inline-block;
+      margin-bottom: 1.35rem;
+      padding: 0.85rem 1.35rem 0.9rem;
+      border-radius: 20px;
+      background: #fff7f7;
       border: 1px solid #ffd6d6;
-      margin-bottom: 1.1rem;
+      box-shadow: 0 10px 26px rgba(198, 40, 40, 0.10);
+      text-align: center;
+    }
+    .venue-kicker {
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sv-red);
+      margin-bottom: 0.25rem;
+    }
+    .venue-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 1.35rem;
+      line-height: 1.15;
+      font-weight: 900;
+      color: #a21414;
+      margin-bottom: 0.15rem;
+    }
+    .venue-sub {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #374151;
+    }
+    .venue-sub a {
+      color: var(--sv-blue);
+      text-decoration: none;
+    }
+    .venue-sub a:hover {
+      text-decoration: underline;
+    }
+    .venue-stack {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.35rem;
+    }
+    .venue-card {
+      min-width: 260px;
+      padding: 0.95rem 1.35rem 1rem;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      text-align: center;
+    }
+    .venue-card.main-conference {
+      background: linear-gradient(180deg, #fff7f7 0%, #ffffff 100%);
+      border-color: #ffd0d0;
+      box-shadow: 0 14px 34px rgba(198, 40, 40, 0.12);
+    }
+    .venue-card.workshop-oral {
+      background: linear-gradient(180deg, #f2f8ff 0%, #ffffff 100%);
+      border-color: #cfe6ff;
+      box-shadow: 0 14px 34px rgba(44, 127, 184, 0.12);
+    }
+    .venue-card .venue-kicker {
+      margin-bottom: 0.3rem;
+    }
+    .venue-card.main-conference .venue-main {
+      color: #a21414;
+      font-size: 1.65rem;
+      margin-bottom: 0.1rem;
+    }
+    .venue-card.workshop-oral .venue-main {
+      color: var(--sv-blue);
+      font-size: 1.38rem;
+      margin-bottom: 0.1rem;
+    }
+    .venue-card.workshop-oral .venue-kicker {
+      color: var(--sv-blue);
     }
     .tldr-box {
       max-width: 900px;
@@ -422,9 +494,25 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <div class="venue-badge">
-            <span class="icon"><i class="fas fa-award"></i></span>
-            <span>CVPR 2026 DataMFM Workshop · Oral Presentation</span>
+          <div class="venue-stack" aria-label="Publication venue">
+            <div class="venue-card main-conference">
+              <div class="venue-kicker">Accepted Paper</div>
+              <div class="venue-main">
+                <span class="icon"><i class="fas fa-check-circle"></i></span>
+                <span>CVPR 2026</span>
+              </div>
+              <div class="venue-sub">Main Conference</div>
+            </div>
+            <div class="venue-card workshop-oral">
+              <div class="venue-kicker">Also selected for</div>
+              <div class="venue-main">
+                <span class="icon"><i class="fas fa-award"></i></span>
+                <span>Oral Presentation</span>
+              </div>
+              <div class="venue-sub">
+                at the <a href="https://datamfm.github.io/" target="_blank" rel="noopener noreferrer">DataMFM Workshop</a>
+              </div>
+            </div>
           </div>
 
           <h1 class="title is-1 publication-title">
@@ -829,13 +917,13 @@
       </div>
       <div class="column is-half">
         <a class="resource-card" href="./static/pdfs/poster.pdf">
-          <div class="resource-left"><span class="icon-round"><i class="fas fa-image"></i></span><div><strong>Poster</strong><br><span class="mini-note">CVPR DataMFM Workshop poster</span></div></div>
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-image"></i></span><div><strong>Poster</strong><br><span class="mini-note">CVPR 2026 project poster</span></div></div>
           <span class="icon"><i class="fas fa-arrow-right"></i></span>
         </a>
       </div>
       <div class="column is-half">
         <a class="resource-card" href="./static/pdfs/oral_slide.pdf">
-          <div class="resource-left"><span class="icon-round"><i class="fas fa-chalkboard"></i></span><div><strong>Slides</strong><br><span class="mini-note">Oral presentation slides</span></div></div>
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-chalkboard"></i></span><div><strong>Slides</strong><br><span class="mini-note">Oral slides for DataMFM Workshop</span></div></div>
           <span class="icon"><i class="fas fa-arrow-right"></i></span>
         </a>
       </div>
@@ -846,7 +934,7 @@
 <section class="section" id="citation">
   <div class="container is-max-desktop content">
     <h2 class="title is-2 has-text-centered section-title">Citation</h2>
-<pre class="citation"><code>@InProceedings{Zhang_2026_CVPR,
+<pre class="citation"><code>@InProceedings{Zhang_2026_SVHalluc,
   author    = {Chenshuang Zhang and Kyeong Seon Kim and Chengxin Liu and Tae-Hyun Oh},
   title     = {SVHalluc: Benchmarking Speech--Vision Hallucination in Audio-Visual Large Language Models},
   booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
