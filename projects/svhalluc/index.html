@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
+  <meta name="description" content="SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
   <meta name="keywords" content="speech-vision hallucination, audio-visual LLMs, multimodal hallucination, speech grounding, video understanding, benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models</title>
@@ -486,10 +486,233 @@
       margin-bottom: 0.7rem;
     }
 
+
+
+    .benchmark-note {
+      margin-top: 1.35rem;
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+      background: linear-gradient(90deg, var(--sv-red-soft), var(--sv-blue-soft));
+      border: 1px solid var(--sv-line);
+      color: var(--sv-muted);
+      line-height: 1.6;
+    }
+
+    /* Slide-inspired task sample cards */
+    .example-panel {
+      overflow: hidden;
+      padding: 0;
+    }
+    .sample-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 0;
+      min-height: 360px;
+    }
+    .sample-media {
+      padding: 1.35rem;
+      border-right: 1px solid var(--sv-line);
+      background: #ffffff;
+    }
+    .sample-media.semantic {
+      background: linear-gradient(180deg, #ffffff 0%, var(--sv-red-soft) 100%);
+    }
+    .sample-media.temporal {
+      background: linear-gradient(180deg, #ffffff 0%, var(--sv-blue-soft) 100%);
+    }
+    .sample-question {
+      padding: 1.35rem;
+      background: #f8fafc;
+    }
+    .sample-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 0.95rem;
+    }
+    .sample-title {
+      margin-bottom: 0 !important;
+      letter-spacing: -0.02em;
+    }
+    .sample-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.32rem 0.68rem;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .sample-badge.semantic { background: #ffe5e5; color: var(--sv-red); }
+    .sample-badge.temporal { background: #e1f1ff; color: var(--sv-blue); }
+    .video-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      padding: 0.55rem;
+      border-radius: 18px;
+      background: #111827;
+      box-shadow: 0 12px 26px rgba(17, 24, 39, 0.16);
+      margin-bottom: 0.85rem;
+    }
+    .fake-frame {
+      position: relative;
+      min-height: 145px;
+      border-radius: 12px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 28% 36%, rgba(255,255,255,0.42), transparent 15%),
+        radial-gradient(circle at 70% 54%, rgba(255,255,255,0.32), transparent 13%),
+        linear-gradient(135deg, #f5d7a1, #b77948);
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+    .fake-frame.semantic-frame {
+      background:
+        radial-gradient(circle at 26% 34%, rgba(255,255,255,0.46), transparent 14%),
+        radial-gradient(circle at 72% 55%, rgba(255,255,255,0.32), transparent 12%),
+        linear-gradient(135deg, #e6bd78, #f5ead6);
+    }
+    .fake-frame.temporal-frame {
+      background:
+        radial-gradient(circle at 32% 40%, rgba(255,255,255,0.42), transparent 13%),
+        radial-gradient(circle at 66% 52%, rgba(255,255,255,0.34), transparent 11%),
+        linear-gradient(135deg, #bf3d36, #f3c1a3);
+    }
+    .frame-label {
+      position: absolute;
+      left: 0.55rem;
+      bottom: 0.55rem;
+      right: 0.55rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 9px;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      background: rgba(17,24,39,0.72);
+      backdrop-filter: blur(4px);
+    }
+    .frame-status {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.93);
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .frame-status.no { color: var(--sv-red); }
+    .frame-status.yes { color: var(--sv-green); }
+    .waveform {
+      height: 46px;
+      border-radius: 12px;
+      background:
+        linear-gradient(90deg, transparent 0 3%, #111827 3% 4%, transparent 4% 7%, #111827 7% 8%, transparent 8% 10%, #111827 10% 12%, transparent 12% 16%, #111827 16% 17%, transparent 17% 20%, #111827 20% 23%, transparent 23% 27%, #111827 27% 28%, transparent 28% 31%, #111827 31% 33%, transparent 33% 36%, #111827 36% 37%, transparent 37% 42%, #111827 42% 44%, transparent 44% 48%, #111827 48% 49%, transparent 49% 52%, #111827 52% 54%, transparent 54% 59%, #111827 59% 60%, transparent 60% 64%, #111827 64% 66%, transparent 66% 70%, #111827 70% 71%, transparent 71% 76%, #111827 76% 78%, transparent 78% 82%, #111827 82% 84%, transparent 84% 88%, #111827 88% 89%, transparent 89% 93%, #111827 93% 95%, transparent 95% 100%);
+      opacity: 0.72;
+      margin-bottom: 0.85rem;
+    }
+    .transcript-card {
+      border-left: 5px solid #f6c344;
+      background: #fffbeb;
+      border-radius: 0 15px 15px 0;
+      padding: 0.9rem 1rem;
+      line-height: 1.55;
+      font-size: 0.98rem;
+    }
+    .transcript-card mark {
+      padding: 0.05rem 0.16rem;
+      border-radius: 5px;
+      background: rgba(246, 195, 68, 0.35);
+      color: inherit;
+      font-weight: 800;
+    }
+    .slide-like-question {
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      border-radius: 18px;
+      padding: 1.05rem;
+      box-shadow: 0 10px 26px rgba(31, 41, 55, 0.07);
+    }
+    .question-label {
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--sv-muted);
+      margin-bottom: 0.45rem;
+    }
+    .question-text {
+      font-size: 1.06rem;
+      font-weight: 800;
+      line-height: 1.45;
+      margin-bottom: 0.85rem;
+    }
+    .options-grid {
+      display: grid;
+      gap: 0.55rem;
+      margin-top: 0.75rem;
+    }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 13px;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .option .letter {
+      flex: 0 0 auto;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #e5e7eb;
+      color: #374151;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+    .option.correct {
+      border-color: rgba(40, 138, 72, 0.42);
+      background: #f0fff5;
+      color: var(--sv-green);
+    }
+    .option.correct .letter {
+      background: var(--sv-green);
+      color: #ffffff;
+    }
+    .answer-note {
+      margin-top: 0.9rem;
+      padding: 0.78rem 0.85rem;
+      border-radius: 13px;
+      background: #ffffff;
+      border: 1px dashed #cdd6e1;
+      color: var(--sv-muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+    .answer-note strong { color: var(--sv-ink); }
     @media screen and (max-width: 768px) {
       .publication-title { font-size: 2rem !important; }
       .section { padding-top: 3rem; padding-bottom: 3rem; }
       .task-row { grid-template-columns: 1fr; }
+      .sample-layout { grid-template-columns: 1fr; }
+      .sample-media { border-right: none; border-bottom: 1px solid var(--sv-line); }
+      .video-strip { grid-template-columns: 1fr; }
+      .fake-frame { min-height: 120px; }
+      .sample-head { align-items: flex-start; flex-direction: column; }
       .resource-card { align-items: flex-start; flex-direction: column; }
     }
   </style>
@@ -546,7 +769,7 @@
           </div>
 
           <h1 class="title is-1 publication-title">
-            SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models
+            SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models
           </h1>
 
           <div class="is-size-5 publication-authors">
@@ -645,7 +868,10 @@
     <h2 class="title is-2 has-text-centered section-title">Abstract</h2>
     <div class="content has-text-justified">
       <p>
-        Despite the success of audio-visual large-language models (LLMs), they can produce plausible but ungrounded outputs, termed hallucination. Existing benchmarks focus on environmental sounds (e.g., dog barking) to indicate event occurrence. In contrast, human speech carries fundamentally different, rich semantics and temporal structures, yet it remains unexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs. To systematically study this, we introduce SVHalluc, the first comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. Our benchmark diagnoses speech–vision hallucinations from two critical and complementary aspects: semantic and temporal. Experimental results demonstrate that state-of-the-art open-source audio-visual LLMs struggle with aligning speech content with corresponding visual signals, with a near-random accuracy on multiple tasks. In contrast,  Gemini-2.5 Pro significantly outperforms the open-source models. Our analysis suggests that their failures stem from limited ability in cross-modality understanding,  despite strong performance in single-modality perception. Our work uncovers a new and fundamental limitation of current audio-visual LLMs and highlights the need for speech-grounded video comprehension. 
+        Unlike environmental sounds that mainly indicate event occurrence, human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large language models in video understanding, it remains underexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs by confusing what is said with what is visually supported.
+      </p>
+      <p>
+        We introduce <strong>SVHalluc</strong>, a comprehensive benchmark for evaluating speech-vision hallucination in audio-visual LLMs. SVHalluc diagnoses hallucinations from two complementary perspectives: <strong>semantic grounding</strong>, which asks what speech content is visible, and <strong>temporal grounding</strong>, which asks when narrated actions visually occur. Experimental results show that current audio-visual LLMs still struggle to ground speech in vision, revealing a fundamental limitation of cross-modal speech-video understanding.
       </p>
     </div>
   </div>
@@ -665,21 +891,21 @@
             <div class="task-icon"><i class="fas fa-eye"></i></div>
             <div>
               <h3 class="title is-4" style="margin-bottom:0.1rem;">Semantic Tasks</h3>
-              <p class="mini-note">What speech content is visually supported?</p>
+              <p class="mini-note">What speech content is visible?</p>
             </div>
           </div>
           <div class="task-list">
             <div class="task-row">
               <div class="task-abbr">GSA</div>
-              <div><strong>Global Semantic Alignment</strong><span>Video-level semantic matching</span></div>
+              <div><strong>Global Semantic Alignment</strong><span>Video-level semantic matching.</span></div>
             </div>
             <div class="task-row">
               <div class="task-abbr">FGSA</div>
-              <div><strong>Fine-Grained Semantic Alignment</strong><span>Object-level semantic grounding</span></div>
+              <div><strong>Fine-Grained Semantic Alignment</strong><span>Object-level semantic grounding.</span></div>
             </div>
             <div class="task-row">
               <div class="task-abbr">CMSB</div>
-              <div><strong>Cross-Modal Semantic Binding</strong><span>Event-level semantic matching</span></div>
+              <div><strong>Cross-Modal Semantic Binding</strong><span>Event-level semantic matching.</span></div>
             </div>
           </div>
         </div>
@@ -691,7 +917,7 @@
             <div class="task-icon"><i class="fas fa-clock"></i></div>
             <div>
               <h3 class="title is-4" style="margin-bottom:0.1rem;">Temporal Tasks</h3>
-              <p class="mini-note">When narrated events occur visually?</p>
+              <p class="mini-note">When does the narrated action visually occur?</p>
             </div>
           </div>
           <div class="task-list">
@@ -705,19 +931,16 @@
             </div>
             <div class="task-row">
               <div class="task-abbr">CMTB</div>
-              <div><strong>Cross-Modal Temporal Binding</strong><span>Distinguishing speech content from current visual events.</span></div>
+              <div><strong>Cross-Modal Temporal Binding</strong><span>Distinguishing speech from the current video.</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="figure-box" style="margin-top:1.5rem;">
-      <img src="static/images/task2.png" alt="SVHalluc semantic and temporal task taxonomy.">
+    <div class="benchmark-note has-text-centered">
+      <strong>Task design:</strong> semantic tasks evaluate whether speech content is visually supported, while temporal tasks evaluate whether narrated events are aligned with the current visual moment.
     </div>
-    <p class="caption has-text-centered">
-      Six tasks jointly evaluate whether models can align speech content with visual evidence at semantic and temporal levels.
-    </p>
   </div>
 </section>
 
@@ -725,7 +948,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Task Examples</h2>
     <p class="section-kicker has-text-centered">
-      Models should not assume narrated content is visible, and should not assume narrated events are happening at the current moment.
+      Select a task to see how SVHalluc turns a speech-video pair into a diagnostic question. The layout follows the oral-slide style: visual evidence and speech on the left, task-specific question on the right.
     </p>
 
     <div class="example-tabs" role="tablist" aria-label="SVHalluc task examples">
@@ -738,62 +961,178 @@
     </div>
 
     <div class="example-panel is-active" id="example-gsa">
-      <span class="example-tag semantic">Global Semantic Alignment</span>
-      <div class="speech-box"><strong>Speech:</strong> “Pour out the water.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> Does the speech describe the visual events in the video?<br>
-        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
-        <span class="answer">Answer: depends on whether the video globally matches the spoken description.</span>
+      <div class="sample-layout">
+        <div class="sample-media semantic">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Global Semantic Alignment</h3>
+            <span class="sample-badge semantic"><i class="fas fa-eye"></i> Semantic</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visual context</span></div>
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Speech-video mismatch</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “I’m going to turn the heat back to medium-low and place the <mark>first slice of bread</mark> in...”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag semantic">GSA · Video-level matching</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">Does the speech describe the visual events in the video?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Yes</span></div>
+              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> judge the global correspondence between speech and the whole video, rather than assuming narration is visual evidence.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="example-panel" id="example-fgsa">
-      <span class="example-tag semantic">Fine-Grained Semantic Alignment</span>
-      <div class="speech-box"><strong>Speech:</strong> “I’m going to place the first slice of bread in.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> Is the slice of bread visible in the video?<br>
-        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
-        <span class="answer">Answer: models must check visual evidence instead of relying only on the transcript.</span>
+      <div class="sample-layout">
+        <div class="sample-media semantic">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Fine-Grained Semantic Alignment</h3>
+            <span class="sample-badge semantic"><i class="fas fa-search"></i> Semantic</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visible evidence</span></div>
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Target object check</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “...place the first <mark>slice of bread</mark> in. Now I’m going to lay the cheddar cheese over the top.”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag semantic">FGSA · Object-level grounding</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">Is the slice of bread visible in the video?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Yes</span></div>
+              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> evaluate whether the model checks visual evidence for a spoken object.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="example-panel" id="example-cmsb">
-      <span class="example-tag semantic">Cross-Modal Semantic Binding</span>
-      <div class="speech-box"><strong>Speech:</strong> “Now what I’m going to do is lay the cheddar cheese over the top.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> Is the following event visible in the video: cook cheddar cheese until it becomes soft?<br>
-        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
-        <span class="answer">Answer: models must bind the spoken event to the visual event, not just detect related words.</span>
+      <div class="sample-layout">
+        <div class="sample-media semantic">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Cross-Modal Semantic Binding</h3>
+            <span class="sample-badge semantic"><i class="fas fa-link"></i> Semantic</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Spoken event</span></div>
+            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visual event</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “Now what I’m going to do is lay the <mark>cheddar cheese</mark> over the top.”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag semantic">CMSB · Event-level binding</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">Is the following event visible in the video: cook cheddar cheese until it becomes soft?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Yes</span></div>
+              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> test event-level binding beyond detecting related words such as “cheese.”</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="example-panel" id="example-ta">
-      <span class="example-tag temporal">Temporal Alignment</span>
-      <div class="speech-box"><strong>Speech:</strong> “Bag with about a third of a cup of flour.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> When the speech is heard, is the narrated event happening at the same time in the video?<br>
-        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
-        <span class="answer">Answer: models must align the speech moment with the visual timeline.</span>
+      <div class="sample-layout">
+        <div class="sample-media temporal">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Temporal Alignment</h3>
+            <span class="sample-badge temporal"><i class="fas fa-clock"></i> Temporal</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Speech moment</span></div>
+            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Narrated event time</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “Bag with about a third of a cup of <mark>flour</mark>.”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag temporal">TA · Same-time matching</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">When the speech is heard, is the narrated event happening at the same time in the video?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Yes</span></div>
+              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> verify whether the spoken event is visually occurring at the current speech timestamp.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="example-panel" id="example-tf">
-      <span class="example-tag temporal">Temporal Forecasting</span>
-      <div class="speech-box"><strong>Speech:</strong> “Bag the meat with flour.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> Relative to the moment when the speech is heard, when does the narrated event occur in the video?<br>
-        <strong>Options:</strong> (A) Past &nbsp; (B) Present &nbsp; (C) Future<br>
-        <span class="answer">Answer: models must reason whether the event is past, present, or future relative to speech.</span>
+      <div class="sample-layout">
+        <div class="sample-media temporal">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Temporal Forecasting</h3>
+            <span class="sample-badge temporal"><i class="fas fa-forward"></i> Temporal</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame temporal-frame"><span class="frame-status yes">✓</span><span class="frame-label">Current moment</span></div>
+            <div class="fake-frame temporal-frame"><span class="frame-status no">→</span><span class="frame-label">Future visual event</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “<mark>Bag the meat with flour</mark>.”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag temporal">TF · Past / Present / Future</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">Relative to the moment when the speech is heard, when does the narrated event occur in the video?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Past</span></div>
+              <div class="option"><span class="letter">B</span><span>Present</span></div>
+              <div class="option correct"><span class="letter">C</span><span>Future</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> reason over the visual timeline relative to the speech moment.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="example-panel" id="example-cmtb">
-      <span class="example-tag temporal">Cross-Modal Temporal Binding</span>
-      <div class="speech-box"><strong>Speech:</strong> “Each cube or a bunch? I would do it with several at a time.”</div>
-      <div class="qa-box">
-        <strong>Question:</strong> When the speech is heard, what visual action is occurring in the video?<br>
-        <strong>Options:</strong> (A) put seasoned meat in a zip lock bag with flour &nbsp; (B) add herbs and wine &nbsp; (C) season diced beef with salt and pepper<br>
-        <span class="answer">Answer: models must identify the current visual action rather than repeat nearby speech content.</span>
+      <div class="sample-layout">
+        <div class="sample-media temporal">
+          <div class="sample-head">
+            <h3 class="title is-4 sample-title">Cross-Modal Temporal Binding</h3>
+            <span class="sample-badge temporal"><i class="fas fa-random"></i> Temporal</span>
+          </div>
+          <div class="video-strip">
+            <div class="fake-frame temporal-frame"><span class="frame-status yes">✓</span><span class="frame-label">Current visual action</span></div>
+            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Nearby spoken content</span></div>
+          </div>
+          <div class="waveform" aria-hidden="true"></div>
+          <div class="transcript-card"><strong>Speech:</strong> “Each cube or a bunch? I would do it with <mark>several at a time</mark>.”</div>
+        </div>
+        <div class="sample-question">
+          <span class="example-tag temporal">CMTB · Current action selection</span>
+          <div class="slide-like-question">
+            <div class="question-label">Question</div>
+            <div class="question-text">When the speech is heard, what visual action is occurring in the video?</div>
+            <div class="options-grid">
+              <div class="option"><span class="letter">A</span><span>Put seasoned meat in a zip lock bag with flour</span></div>
+              <div class="option"><span class="letter">B</span><span>Add cloves, bay leaves, thyme, parsley, and wine</span></div>
+              <div class="option correct"><span class="letter">C</span><span>Season diced beef pieces with salt and pepper</span></div>
+            </div>
+            <div class="answer-note"><strong>Goal:</strong> distinguish the action currently visible from actions mentioned in nearby speech.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -803,7 +1142,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Dataset Statistics</h2>
     <p class="section-kicker has-text-centered">
-      SVHalluc provides balanced and human-verified samples for diagnosing speech–vision hallucination.
+      SVHalluc provides balanced and human-verified samples for diagnosing speech-vision hallucination.
     </p>
 
     <div class="columns is-multiline is-variable is-4">
@@ -820,6 +1159,10 @@
         <div class="stat-card"><div class="stat-number">983</div><div class="stat-label">temporal samples</div></div>
       </div>
     </div>
+
+    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
+      <span class="highlight-red">Semantic tasks</span> test whether spoken content is visually supported, while <span class="highlight-blue">temporal tasks</span> test when narrated events visually occur.
+    </div>
   </div>
 </section>
 
@@ -827,7 +1170,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Main Results</h2>
     <p class="section-kicker has-text-centered">
-      Current audio-visual LLMs still struggle with speech–vision grounding, even when they can process both video and audio inputs.
+      Current audio-visual LLMs still struggle with speech-vision grounding, even when they can process both video and audio inputs.
     </p>
 
     <div class="columns is-variable is-4">
@@ -877,7 +1220,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Why Do Models Fail?</h2>
     <p class="section-kicker has-text-centered">
-      Our analysis suggests that speech–vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
+      Our analysis suggests that speech-vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
     </p>
 
     <div class="columns is-variable is-5">
@@ -904,7 +1247,7 @@
     </div>
 
     <div class="callout has-text-centered" style="margin-top: 1.5rem;">
-      Strong speech perception does not guarantee reliable <span class="highlight-blue">speech–vision integration</span>.
+      Strong speech perception does not guarantee reliable <span class="highlight-blue">speech-vision integration</span>.
     </div>
   </div>
 </section>
