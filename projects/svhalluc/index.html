@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="SVHalluc.">
-  <meta name="keywords" content="Diffusion models, robustness evaluation, vision-language models">
+  <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models.">
+  <meta name="keywords" content="speech-vision hallucination, audio-visual LLMs, multimodal hallucination, speech grounding, video understanding, benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</title>
 
@@ -12,25 +11,17 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
@@ -39,93 +30,447 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-</head>
-<body>
 
+  <style>
+    :root {
+      --sv-red: #d64545;
+      --sv-red-soft: #fff1f1;
+      --sv-red-mid: #f7d7d7;
+      --sv-blue: #2c7fb8;
+      --sv-blue-soft: #eef7ff;
+      --sv-blue-mid: #d8ecfb;
+      --sv-ink: #1f2937;
+      --sv-muted: #596275;
+      --sv-line: #e6eaf0;
+      --sv-bg: #fbfcfe;
+      --sv-card: #ffffff;
+      --sv-green: #288a48;
+      --sv-shadow: 0 14px 35px rgba(31, 41, 55, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      color: var(--sv-ink);
+      background: var(--sv-bg);
+      font-family: "Google Sans", "Noto Sans", Arial, sans-serif;
+    }
+
+    .navbar {
+      border-bottom: 1px solid var(--sv-line);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .navbar-item { font-weight: 600; color: var(--sv-muted); }
+    .navbar-item:hover { color: var(--sv-blue); }
+
+    .hero.is-svhalluc {
+      background:
+        radial-gradient(circle at 8% 5%, rgba(214,69,69,0.12), transparent 30%),
+        radial-gradient(circle at 92% 8%, rgba(44,127,184,0.14), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border-bottom: 1px solid var(--sv-line);
+    }
+    .publication-title {
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    .venue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      background: #fff4f4;
+      color: var(--sv-red);
+      font-weight: 700;
+      border: 1px solid #ffd6d6;
+      margin-bottom: 1.1rem;
+    }
+    .tldr-box {
+      max-width: 900px;
+      margin: 1.4rem auto 1.25rem;
+      padding: 1.15rem 1.35rem;
+      border-radius: 18px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+    .tldr-box strong { color: var(--sv-red); }
+    .publication-links .button {
+      margin: 0.25rem 0.18rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .publication-links .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(31, 41, 55, 0.16);
+    }
+
+    .section { padding-top: 4rem; padding-bottom: 4rem; }
+    .section.is-white { background: #ffffff; }
+    .section-title {
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+    .section-kicker {
+      color: var(--sv-muted);
+      max-width: 760px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+      font-size: 1.05rem;
+    }
+
+    .figure-box {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      padding: 0.8rem;
+    }
+    .figure-box img {
+      display: block;
+      width: 100%;
+      border-radius: 14px;
+    }
+    .caption {
+      color: var(--sv-muted);
+      font-size: 0.92rem;
+      margin-top: 0.7rem;
+      line-height: 1.55;
+    }
+
+    .motivation-card,
+    .task-card,
+    .result-card,
+    .analysis-card,
+    .stat-card,
+    .example-panel,
+    .resource-card {
+      height: 100%;
+      border-radius: 20px;
+      background: var(--sv-card);
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+    }
+    .motivation-card { padding: 1.3rem; }
+    .motivation-card.sound { border-top: 5px solid #7a8795; }
+    .motivation-card.speech { border-top: 5px solid var(--sv-red); }
+    .motivation-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      color: var(--sv-muted);
+      margin-bottom: 0.6rem;
+    }
+    .motivation-card h4 { margin-bottom: 0.65rem; }
+    .contrast-line {
+      margin-top: 1rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 13px;
+      font-weight: 800;
+      text-align: center;
+    }
+    .contrast-line.gray { background: #f4f6f8; color: #3b4654; }
+    .contrast-line.red { background: var(--sv-red-soft); color: var(--sv-red); border: 1px solid var(--sv-red-mid); }
+
+    .callout {
+      border-radius: 20px;
+      padding: 1.35rem 1.5rem;
+      background: linear-gradient(90deg, #fff6f6, #f2f8ff);
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      font-size: 1.12rem;
+      line-height: 1.6;
+    }
+    .callout .red { color: var(--sv-red); font-weight: 800; }
+    .callout .blue { color: var(--sv-blue); font-weight: 800; }
+
+    .task-card { padding: 1.3rem; }
+    .task-card.semantic { background: linear-gradient(180deg, var(--sv-red-soft), #ffffff 55%); border-top: 5px solid var(--sv-red); }
+    .task-card.temporal { background: linear-gradient(180deg, var(--sv-blue-soft), #ffffff 55%); border-top: 5px solid var(--sv-blue); }
+    .task-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .task-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.3rem;
+    }
+    .task-card.semantic .task-icon { background: #ffe0e0; color: var(--sv-red); }
+    .task-card.temporal .task-icon { background: #dff0ff; color: var(--sv-blue); }
+    .task-list { margin-top: 1rem; }
+    .task-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.9rem;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(230,234,240,0.9);
+      margin-bottom: 0.75rem;
+    }
+    .task-abbr {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 12px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+    .semantic .task-abbr { background: #ffe5e5; color: var(--sv-red); }
+    .temporal .task-abbr { background: #e1f1ff; color: var(--sv-blue); }
+    .task-row strong { display: block; margin-bottom: 0.1rem; }
+    .task-row span { color: var(--sv-muted); font-size: 0.95rem; }
+
+    .example-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-bottom: 1.2rem;
+    }
+    .example-tab {
+      border: 1px solid var(--sv-line);
+      background: #ffffff;
+      color: var(--sv-muted);
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .example-tab:hover { transform: translateY(-1px); }
+    .example-tab.is-active.semantic { background: var(--sv-red); border-color: var(--sv-red); color: #ffffff; }
+    .example-tab.is-active.temporal { background: var(--sv-blue); border-color: var(--sv-blue); color: #ffffff; }
+    .example-panel { display: none; padding: 1.3rem; }
+    .example-panel.is-active { display: block; }
+    .example-tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.28rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.85rem;
+    }
+    .example-tag.semantic { background: var(--sv-red-soft); color: var(--sv-red); }
+    .example-tag.temporal { background: var(--sv-blue-soft); color: var(--sv-blue); }
+    .speech-box {
+      border-left: 4px solid #f6c344;
+      background: #fffbeb;
+      border-radius: 0 13px 13px 0;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.55;
+    }
+    .qa-box {
+      background: #f8fafc;
+      border: 1px solid var(--sv-line);
+      border-radius: 15px;
+      padding: 1rem;
+      line-height: 1.6;
+    }
+    .answer {
+      display: inline-block;
+      margin-top: 0.6rem;
+      color: var(--sv-green);
+      font-weight: 900;
+    }
+
+    .stat-card {
+      padding: 1.3rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.35rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--sv-blue);
+      line-height: 1;
+      margin-bottom: 0.45rem;
+    }
+    .stat-card:nth-child(odd) .stat-number { color: var(--sv-red); }
+    .stat-label { color: var(--sv-muted); font-weight: 700; }
+
+    .result-card { padding: 1.15rem; }
+    .result-card h4 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .result-card p { color: var(--sv-muted); line-height: 1.6; }
+    .result-index {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f2f6fb;
+      color: var(--sv-blue);
+      font-weight: 900;
+      margin-bottom: 0.55rem;
+    }
+
+    .analysis-card { padding: 1.35rem; }
+    .analysis-card.good { border-top: 5px solid var(--sv-green); background: linear-gradient(180deg, #f0fff5, #ffffff 55%); }
+    .analysis-card.bad { border-top: 5px solid var(--sv-red); background: linear-gradient(180deg, var(--sv-red-soft), #ffffff 55%); }
+    .metric-pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      font-weight: 900;
+      margin: 0.25rem 0.25rem 0.25rem 0;
+    }
+    .metric-pill.green { color: var(--sv-green); }
+    .metric-pill.red { color: var(--sv-red); }
+
+    .resource-card {
+      padding: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .resource-card .icon-round {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f2f6fb;
+      color: var(--sv-blue);
+      flex: 0 0 auto;
+    }
+    .resource-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    pre.citation {
+      border-radius: 18px;
+      border: 1px solid var(--sv-line);
+      background: #111827;
+      color: #e5e7eb;
+      padding: 1.2rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    pre.citation code { color: #e5e7eb; }
+
+    .mini-note {
+      color: var(--sv-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .highlight-red { color: var(--sv-red); font-weight: 800; }
+    .highlight-blue { color: var(--sv-blue); font-weight: 800; }
+
+    @media screen and (max-width: 768px) {
+      .publication-title { font-size: 2rem !important; }
+      .section { padding-top: 3rem; padding-bottom: 3rem; }
+      .task-row { grid-template-columns: 1fr; }
+      .resource-card { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
+  <div class="container is-max-desktop">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#top"><strong>SVHalluc</strong></a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="svhalluc-navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="svhalluc-navbar" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#motivation">Motivation</a>
+        <a class="navbar-item" href="#benchmark">Benchmark</a>
+        <a class="navbar-item" href="#examples">Examples</a>
+        <a class="navbar-item" href="#results">Results</a>
+        <a class="navbar-item" href="#analysis">Analysis</a>
+        <a class="navbar-item" href="#resources">Resources</a>
+      </div>
+    </div>
   </div>
 </nav>
 
-
-<section class="hero">
+<section class="hero is-svhalluc" id="top">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</h1>
-          <h3 class="title is-3 publication-title", style="color: red;"> CVPR 2026</h3>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://chenshuang-zhang.github.io/">Chenshuang Zhang</a>,</span>
-            <span class="author-block">
-              <a href="https://scene-the-ella.github.io/">Kyeong Seon Kim</a>,</span>
-            <span class="author-block">
-              <a href="https://cxliu0.github.io/">Chengxin Liu</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://ami.kaist.ac.kr/members/tae-hyun-oh">Tae-Hyun Oh</a>
-            </span>
+          <div class="venue-badge">
+            <span class="icon"><i class="fas fa-award"></i></span>
+            <span>CVPR 2026 DataMFM Workshop · Oral Presentation</span>
           </div>
 
+          <h1 class="title is-1 publication-title">
+            SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models
+          </h1>
+
           <div class="is-size-5 publication-authors">
-            KAIST
-            <!-- <span class="author-block"><sup>1</sup>KAIST</span>
-            <span class="author-block"><sup>2</sup>University of Michigan</span>
-            <span class="author-block"><sup>3</sup> McGill University</span>
-            <span class="author-block"><sup>4</sup>MILA</span> -->
+            <span class="author-block"><a href="https://chenshuang-zhang.github.io/">Chenshuang Zhang</a>,</span>
+            <span class="author-block"><a href="https://scene-the-ella.github.io/">Kyeong Seon Kim</a>,</span>
+            <span class="author-block"><a href="https://cxliu0.github.io/">Chengxin Liu</a>,</span>
+            <span class="author-block"><a href="https://ami.kaist.ac.kr/members/tae-hyun-oh">Tae-Hyun Oh</a></span>
           </div>
 
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://chenshuang-zhang.github.io/projects/svhalluc/"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://chenshuang-zhang.github.io/projects/svhalluc/"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://chenshuang-zhang.github.io/projects/svhalluc/"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
-                </span>
+          <div class="is-size-5 publication-authors" style="margin-top: 0.3rem;">KAIST</div>
 
-            <!-- Youtube Link. -->
-            <!-- <span class="link-block">
-            <a href="https://www.youtube.com/watch?v=CQm2oDfCvR8"
-                class="external-link button is-normal is-rounded is-dark">
-              <span class="icon">
-                  <i class="fab fa-youtube"></i>
-              </span>
-              <span>Youtube</span>
+          <div class="tldr-box">
+            <strong>TL;DR:</strong> SVHalluc is the first benchmark for speech-induced hallucinations in audio-visual LLMs, revealing failures in grounding speech content in visual evidence.
+          </div>
+
+          <div class="publication-links">
+            <!-- Replace placeholder hrefs with the final URLs when available. -->
+            <span class="link-block">
+              <a href="https://chenshuang-zhang.github.io/projects/svhalluc/" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
               </a>
-            </span>             -->
-          </div>
-
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://chenshuang-zhang.github.io/projects/svhalluc/" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-database"></i></span><span>Data</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="./static/pdfs/poster.pdf" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-image"></i></span><span>Poster</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="./static/pdfs/oral_slide.pdf" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-chalkboard"></i></span><span>Slides</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -133,155 +478,426 @@
   </div>
 </section>
 
-<section class="section" id="Teaser">
+<section class="section is-white" id="teaser">
   <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <div class="content">
-          <img src="static/images/teaser4.png" alt="Teaser Figure" />
+    <div class="figure-box">
+      <img src="static/images/teaser4.png" alt="SVHalluc teaser: speech content can induce hallucination when models confuse speech with visual evidence.">
+    </div>
+    <p class="caption has-text-centered">
+      Speech can mention more than what is visible. SVHalluc evaluates whether audio-visual LLMs can distinguish speech content from visual evidence.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="motivation">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered section-title">Motivation</h2>
+    <p class="section-kicker has-text-centered">
+      Existing audio-visual hallucination studies often focus on environmental sounds as indicators of event occurrence. Human speech is different: it contains rich semantic and temporal references that may not be visually supported.
+    </p>
+
+    <div class="columns is-variable is-5">
+      <div class="column">
+        <div class="motivation-card sound">
+          <span class="motivation-label">Prior setting</span>
+          <h4 class="title is-4">Environmental sound events</h4>
+          <p>
+            A model hears a sound event, such as <strong>cat meowing</strong>, and may incorrectly infer that the corresponding object is visible in the video.
+          </p>
+          <div class="contrast-line gray">Sound event ≠ visual evidence</div>
         </div>
       </div>
+      <div class="column">
+        <div class="motivation-card speech">
+          <span class="motivation-label">Our setting</span>
+          <h4 class="title is-4">Speech-induced hallucination</h4>
+          <p>
+            A speaker may mention an object, action, or event that is not currently visible. Models should not treat what is said as what is seen.
+          </p>
+          <div class="contrast-line red">Speech content ≠ visual evidence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
+      SVHalluc asks a simple but underexplored question: can audio-visual LLMs <span class="red">ground speech</span> in <span class="blue">visual evidence</span>?
     </div>
   </div>
 </section>
 
-<section class="section" id="Abstract">
+<section class="section is-white" id="abstract">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Abstract</h3>
+    <h2 class="title is-2 has-text-centered section-title">Abstract</h2>
     <div class="content has-text-justified">
       <p>
-      Unlike environmental sounds that mainly indicate event occurrence (e.g., dog barking), human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large-language models (LLMs) in video understanding, it remains unexplored whether current models can accurately align speech contents with corresponding visual signals.  In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs. To systematically study this, we introduce SVHalluc, the first comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. Our benchmark diagnoses speech–vision hallucinations from two complementary perspectives: semantic and temporal. Experimental results demonstrate that most advanced audio-visual LLMs struggle with aligning speech content with corresponding visual signals.  Our work uncovers a fundamental limitation of current audio-visual LLMs and highlights the need for speech-aware and grounded speech-video perception and comprehension.
+        Unlike environmental sounds that mainly indicate event occurrence, human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large language models in video understanding, it remains underexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs by confusing what is said with what is visually supported.
+      </p>
+      <p>
+        We introduce <strong>SVHalluc</strong>, a comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. SVHalluc diagnoses hallucinations from two complementary perspectives: <strong>semantic grounding</strong>, which asks what speech content is visible, and <strong>temporal grounding</strong>, which asks when narrated actions visually occur. Experimental results show that current audio-visual LLMs still struggle to ground speech in vision, revealing a fundamental limitation of cross-modal speech-video understanding.
       </p>
     </div>
   </div>
 </section>
 
-<section class="section" id="Method">
+<section class="section" id="benchmark">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered"> SVHalluc: Cross-modal Speech-Vision Hallucination Evaluation Benchmark</h3>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <div class="content" id='mira_image'>
-          <img src="static/images/task2.png" width="800px" height="2100px" />
+    <h2 class="title is-2 has-text-centered section-title">SVHalluc Benchmark</h2>
+    <p class="section-kicker has-text-centered">
+      SVHalluc contains six diagnostic tasks organized around two questions: <strong>what</strong> speech content is visually supported, and <strong>when</strong> narrated events occur visually.
+    </p>
+
+    <div class="columns is-variable is-5">
+      <div class="column">
+        <div class="task-card semantic">
+          <div class="task-heading">
+            <div class="task-icon"><i class="fas fa-eye"></i></div>
+            <div>
+              <h3 class="title is-4" style="margin-bottom:0.1rem;">Semantic Tasks</h3>
+              <p class="mini-note">What speech content is visible?</p>
+            </div>
+          </div>
+          <div class="task-list">
+            <div class="task-row">
+              <div class="task-abbr">GSA</div>
+              <div><strong>Global Semantic Alignment</strong><span>Video-level semantic matching.</span></div>
+            </div>
+            <div class="task-row">
+              <div class="task-abbr">FGSA</div>
+              <div><strong>Fine-Grained Semantic Alignment</strong><span>Object-level semantic grounding.</span></div>
+            </div>
+            <div class="task-row">
+              <div class="task-abbr">CMSB</div>
+              <div><strong>Cross-Modal Semantic Binding</strong><span>Event-level semantic matching.</span></div>
+            </div>
+          </div>
         </div>
-        <div class="content has-text-justified">
-          <p>
-          We introduce SVHalluc, the first comprehensive benchmark specifically designed to evaluate speech–vision hallucination in audio-visual LLMs. SVHalluc evaluates whether audio-visual LLMs can accurately integrate speech and visual information along two complementary dimensions: semantic and temporal.  In the semantic hallucination tasks, we aim to evaluate whether the models can correctly find the correspondence between speech content with the visual scene, avoiding hallucinating non-existing entities (e.g., objects or events). In the temporal hallucination tasks, we aim to evaluate whether the model could identify when the narrated events occur visually relatively to the moment when the person is speaking.  We design three complementary coarse-to-fine tasks for each hallucination type, resulting in six tasks in total. SVHalluc systematically exposes failure modes in both semantic and temporal understanding, providing a rigorous and comprehensive evaluation of speech–vision hallucination in current audio–visual LLMs.
-          </p>
+      </div>
+
+      <div class="column">
+        <div class="task-card temporal">
+          <div class="task-heading">
+            <div class="task-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h3 class="title is-4" style="margin-bottom:0.1rem;">Temporal Tasks</h3>
+              <p class="mini-note">When does the narrated action visually occur?</p>
+            </div>
+          </div>
+          <div class="task-list">
+            <div class="task-row">
+              <div class="task-abbr">TA</div>
+              <div><strong>Temporal Alignment</strong><span>Same-time speech-video matching.</span></div>
+            </div>
+            <div class="task-row">
+              <div class="task-abbr">TF</div>
+              <div><strong>Temporal Forecasting</strong><span>Past / present / future reasoning.</span></div>
+            </div>
+            <div class="task-row">
+              <div class="task-abbr">CMTB</div>
+              <div><strong>Cross-Modal Temporal Binding</strong><span>Distinguishing speech from the current video.</span></div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="figure-box" style="margin-top:1.5rem;">
+      <img src="static/images/task2.png" alt="SVHalluc semantic and temporal task taxonomy.">
+    </div>
+    <p class="caption has-text-centered">
+      Six tasks jointly evaluate whether models can align speech content with visual evidence at semantic and temporal levels.
+    </p>
+  </div>
+</section>
+
+<section class="section is-white" id="examples">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered section-title">Task Examples</h2>
+    <p class="section-kicker has-text-centered">
+      Models should not assume narrated content is visible, and should not assume narrated events are happening at the current moment.
+    </p>
+
+    <div class="example-tabs" role="tablist" aria-label="SVHalluc task examples">
+      <button class="example-tab semantic is-active" data-tab="gsa">GSA</button>
+      <button class="example-tab semantic" data-tab="fgsa">FGSA</button>
+      <button class="example-tab semantic" data-tab="cmsb">CMSB</button>
+      <button class="example-tab temporal" data-tab="ta">TA</button>
+      <button class="example-tab temporal" data-tab="tf">TF</button>
+      <button class="example-tab temporal" data-tab="cmtb">CMTB</button>
+    </div>
+
+    <div class="example-panel is-active" id="example-gsa">
+      <span class="example-tag semantic">Global Semantic Alignment</span>
+      <div class="speech-box"><strong>Speech:</strong> “Pour out the water.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> Does the speech describe the visual events in the video?<br>
+        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
+        <span class="answer">Answer: depends on whether the video globally matches the spoken description.</span>
+      </div>
+    </div>
+
+    <div class="example-panel" id="example-fgsa">
+      <span class="example-tag semantic">Fine-Grained Semantic Alignment</span>
+      <div class="speech-box"><strong>Speech:</strong> “I’m going to place the first slice of bread in.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> Is the slice of bread visible in the video?<br>
+        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
+        <span class="answer">Answer: models must check visual evidence instead of relying only on the transcript.</span>
+      </div>
+    </div>
+
+    <div class="example-panel" id="example-cmsb">
+      <span class="example-tag semantic">Cross-Modal Semantic Binding</span>
+      <div class="speech-box"><strong>Speech:</strong> “Now what I’m going to do is lay the cheddar cheese over the top.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> Is the following event visible in the video: cook cheddar cheese until it becomes soft?<br>
+        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
+        <span class="answer">Answer: models must bind the spoken event to the visual event, not just detect related words.</span>
+      </div>
+    </div>
+
+    <div class="example-panel" id="example-ta">
+      <span class="example-tag temporal">Temporal Alignment</span>
+      <div class="speech-box"><strong>Speech:</strong> “Bag with about a third of a cup of flour.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> When the speech is heard, is the narrated event happening at the same time in the video?<br>
+        <strong>Options:</strong> (A) Yes &nbsp; (B) No<br>
+        <span class="answer">Answer: models must align the speech moment with the visual timeline.</span>
+      </div>
+    </div>
+
+    <div class="example-panel" id="example-tf">
+      <span class="example-tag temporal">Temporal Forecasting</span>
+      <div class="speech-box"><strong>Speech:</strong> “Bag the meat with flour.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> Relative to the moment when the speech is heard, when does the narrated event occur in the video?<br>
+        <strong>Options:</strong> (A) Past &nbsp; (B) Present &nbsp; (C) Future<br>
+        <span class="answer">Answer: models must reason whether the event is past, present, or future relative to speech.</span>
+      </div>
+    </div>
+
+    <div class="example-panel" id="example-cmtb">
+      <span class="example-tag temporal">Cross-Modal Temporal Binding</span>
+      <div class="speech-box"><strong>Speech:</strong> “Each cube or a bunch? I would do it with several at a time.”</div>
+      <div class="qa-box">
+        <strong>Question:</strong> When the speech is heard, what visual action is occurring in the video?<br>
+        <strong>Options:</strong> (A) put seasoned meat in a zip lock bag with flour &nbsp; (B) add herbs and wine &nbsp; (C) season diced beef with salt and pepper<br>
+        <span class="answer">Answer: models must identify the current visual action rather than repeat nearby speech content.</span>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- <section class="section" id="Results">
+<section class="section" id="dataset">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Results: SOTA Model Accuracy Drops by up to 60%</h3>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <div class="content" id='mira_image'>
-          <img src="static/images/imagenet.png" width="800px" height="2100px" />
+    <h2 class="title is-2 has-text-centered section-title">Dataset Statistics</h2>
+    <p class="section-kicker has-text-centered">
+      SVHalluc provides balanced and human-verified samples for diagnosing speech–vision hallucination.
+    </p>
+
+    <div class="columns is-multiline is-variable is-4">
+      <div class="column is-3-desktop is-6-tablet">
+        <div class="stat-card"><div class="stat-number">2,405</div><div class="stat-label">video-question pairs</div></div>
+      </div>
+      <div class="column is-3-desktop is-6-tablet">
+        <div class="stat-card"><div class="stat-number">6</div><div class="stat-label">evaluation tasks</div></div>
+      </div>
+      <div class="column is-3-desktop is-6-tablet">
+        <div class="stat-card"><div class="stat-number">1,422</div><div class="stat-label">semantic samples</div></div>
+      </div>
+      <div class="column is-3-desktop is-6-tablet">
+        <div class="stat-card"><div class="stat-number">983</div><div class="stat-label">temporal samples</div></div>
+      </div>
+    </div>
+
+    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
+      <span class="highlight-red">Semantic tasks</span> test whether spoken content is visually supported, while <span class="highlight-blue">temporal tasks</span> test when narrated events visually occur.
+    </div>
+  </div>
+</section>
+
+<section class="section is-white" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered section-title">Main Results</h2>
+    <p class="section-kicker has-text-centered">
+      Current audio-visual LLMs still struggle with speech–vision grounding, even when they can process both video and audio inputs.
+    </p>
+
+    <div class="columns is-variable is-4">
+      <div class="column">
+        <div class="result-card">
+          <div class="result-index">1</div>
+          <h4 class="title is-5">AV-LLMs perform poorly on SVHalluc</h4>
+          <p>Open-source models perform near random on multiple tasks. Commercial models perform better, but still hallucinate.</p>
         </div>
-        <div class="content has-text-justified">
-          <p>
-            Model accuracy on ImageNet vs. ImageNet-D. Each data point corresponds to one tested model. The plots reveal that there is a significant accuracy drop from ImageNet to our new test set ImageNet-D.
-          </p>
+      </div>
+      <div class="column">
+        <div class="result-card">
+          <div class="result-index">2</div>
+          <h4 class="title is-5">Global alignment is difficult</h4>
+          <p>Models can be better at object-level grounding, but still fail to judge whether speech globally matches the video.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="result-card">
+          <div class="result-index">3</div>
+          <h4 class="title is-5">Temporal grounding remains challenging</h4>
+          <p>Models often confuse narrated events with what is happening visually at the current speech moment.</p>
         </div>
       </div>
     </div>
-  </div>
-</section> -->
 
-<!-- <section class="section" id="Comparison">
-  <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Visualizations: Higher Quality and Diverse Variations</h3>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <div class="content" id='mira_image'>
-          <img src="static/images/test_set_comparison.png" width="800px" height="2100px" />
+    <!-- Optional: export these figures from your slides/poster and place them under static/images/. -->
+    <div class="columns is-variable is-5" style="margin-top: 1.2rem;">
+      <div class="column">
+        <div class="figure-box">
+          <img src="static/images/results_overall.png" alt="SVHalluc overall model performance." onerror="this.closest('.figure-box').style.display='none';">
         </div>
-        <div class="content has-text-justified">
-          <p>
-            Compared to prior synthetic test sets, ImageNet-D achieves higher image quality and diverse variations. ImageNet-D can be scaled efficiently to include more categories and nuisances.
-          </p>
+      </div>
+      <div class="column">
+        <div class="figure-box">
+          <img src="static/images/results_task_heatmap.png" alt="SVHalluc task-wise gain over random heatmap." onerror="this.closest('.figure-box').style.display='none';">
         </div>
       </div>
     </div>
+    <p class="caption has-text-centered">
+      Suggested figures: overall semantic/temporal accuracy and task-wise gain over random chance.
+    </p>
   </div>
-</section> -->
+</section>
 
-
-<!-- <section class="section" id="DatasetSamples">
+<section class="section" id="analysis">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Visualizations: CLIP Fails on ImageNet-D</h3>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <div class="content" id='mira_image'>
-          <img src="static/images/imagenet_d_samples.png" width="800px" height="2100px" />
+    <h2 class="title is-2 has-text-centered section-title">Why Do Models Fail?</h2>
+    <p class="section-kicker has-text-centered">
+      Our analysis suggests that speech–vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
+    </p>
+
+    <div class="columns is-variable is-5">
+      <div class="column">
+        <div class="analysis-card good">
+          <h3 class="title is-4">Speech perception is strong</h3>
+          <p>Models can recognize most speech content and localize when speech is heard.</p>
+          <div style="margin-top: 0.9rem;">
+            <span class="metric-pill green">WER: 0.09 ↓</span>
+            <span class="metric-pill green">mIoU: 0.88 ↑</span>
+          </div>
         </div>
-        <div class="content has-text-justified">
-          <p>
-            For each group of images, the ground truth label is color green, while the predicted categories by CLIP (ViT-L/14) on each image are in black.
-          </p>
+      </div>
+      <div class="column">
+        <div class="analysis-card bad">
+          <h3 class="title is-4">Cross-modal integration is weak</h3>
+          <p>Adding transcripts helps some tasks, but does not solve the core alignment problem. Models still struggle to decide whether the narrated content is visually supported.</p>
+          <div style="margin-top: 0.9rem;">
+            <span class="metric-pill red">Transcript ≠ grounding</span>
+            <span class="metric-pill red">Speech ≠ evidence</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section> -->
 
-<!-- <section class="section" id="DatasetSamplesFailure">
+    <div class="callout has-text-centered" style="margin-top: 1.5rem;">
+      Strong speech perception does not guarantee reliable <span class="highlight-blue">speech–vision integration</span>.
+    </div>
+  </div>
+</section>
+
+<section class="section is-white" id="resources">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Visualizations: MiniGPT-4 and LLaVa-1.5 Fail</h3>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <div class="content" id='mira_image'>
-          <img src="static/images/minigpt_llava1_5.png" width="800px" height="2100px" />
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Both MiniGPT-4 and LLaVa-1.5 fail to recognize the object on ImageNet-D, highlighting the challenges the dataset poses for these models.
-          </p>
-        </div>
+    <h2 class="title is-2 has-text-centered section-title">Resources</h2>
+    <p class="section-kicker has-text-centered">
+      Paper, code, dataset, poster, and slides will be released here.
+    </p>
+
+    <div class="columns is-multiline is-variable is-4">
+      <div class="column is-half">
+        <a class="resource-card" href="https://chenshuang-zhang.github.io/projects/svhalluc/">
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-file-pdf"></i></span><div><strong>Paper</strong><br><span class="mini-note">PDF / arXiv</span></div></div>
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="column is-half">
+        <a class="resource-card" href="https://github.com/">
+          <div class="resource-left"><span class="icon-round"><i class="fab fa-github"></i></span><div><strong>Code</strong><br><span class="mini-note">Evaluation scripts</span></div></div>
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="column is-half">
+        <a class="resource-card" href="https://chenshuang-zhang.github.io/projects/svhalluc/">
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-database"></i></span><div><strong>Data</strong><br><span class="mini-note">Benchmark samples</span></div></div>
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="column is-half">
+        <a class="resource-card" href="./static/pdfs/poster.pdf">
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-image"></i></span><div><strong>Poster</strong><br><span class="mini-note">CVPR DataMFM Workshop poster</span></div></div>
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="column is-half">
+        <a class="resource-card" href="./static/pdfs/oral_slide.pdf">
+          <div class="resource-left"><span class="icon-round"><i class="fas fa-chalkboard"></i></span><div><strong>Slides</strong><br><span class="mini-note">Oral presentation slides</span></div></div>
+          <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        </a>
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
-<section class="section" id="Citation">
+<section class="section" id="citation">
   <div class="container is-max-desktop content">
-    <!-- <h3 class="title">Citation</h3> -->
-    <pre><code>@InProceedings{Zhang_2026_CVPR,
-      author    = {Chenshuang Zhang, Kyeong Seon Kim, Chengxin Liu and Tae-Hyun Oh},
-      title     = {SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models},
-      booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-      month     = {June},
-      year      = {2026},
-      <!-- pages     = {21752-21762} -->
-  }</code></pre>
+    <h2 class="title is-2 has-text-centered section-title">Citation</h2>
+<pre class="citation"><code>@InProceedings{Zhang_2026_CVPR,
+  author    = {Chenshuang Zhang and Kyeong Seon Kim and Chengxin Liu and Tae-Hyun Oh},
+  title     = {SVHalluc: Benchmarking Speech--Vision Hallucination in Audio-Visual Large Language Models},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  month     = {June},
+  year      = {2026}
+}</code></pre>
   </div>
 </section>
-
 
 <footer class="footer">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-8">
-        <div class="content">
+        <div class="content has-text-centered">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
           <p>
-          Thanks to <a
-              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for the source code of the nice website.
+            Thanks to <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for the source code of the original website template.
           </p>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const burgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    burgers.forEach(el => {
+      el.addEventListener('click', () => {
+        const target = el.dataset.target;
+        const targetEl = document.getElementById(target);
+        el.classList.toggle('is-active');
+        targetEl.classList.toggle('is-active');
+      });
+    });
+
+    const tabs = document.querySelectorAll('.example-tab');
+    const panels = document.querySelectorAll('.example-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
+        tabs.forEach(t => t.classList.remove('is-active'));
+        panels.forEach(p => p.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        document.getElementById('example-' + target).classList.add('is-active');
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
