@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
+  <meta name="description" content="SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models. Accepted to CVPR 2026; also selected for an oral presentation at the DataMFM Workshop.">
   <meta name="keywords" content="speech-vision hallucination, audio-visual LLMs, multimodal hallucination, speech grounding, video understanding, benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models</title>
+  <title>SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -398,6 +398,80 @@
       margin-bottom: 0.55rem;
     }
 
+
+
+    .results-visual-card {
+      border-radius: 22px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      padding: 1.2rem;
+      margin-top: 1.2rem;
+      overflow: hidden;
+    }
+    .results-visual-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+    .results-visual-header h3 {
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+    .results-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.42rem 0.75rem;
+      background: #f2f6fb;
+      color: var(--sv-blue);
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .results-badge.semantic {
+      background: var(--sv-red-soft);
+      color: var(--sv-red);
+    }
+    .results-figure {
+      border-radius: 16px;
+      border: 1px solid var(--sv-line);
+      background: #ffffff;
+      padding: 0.55rem;
+    }
+    .results-figure img {
+      display: block;
+      width: 100%;
+      border-radius: 11px;
+    }
+    .takeaway-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .takeaway-pill {
+      border-radius: 16px;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+      padding: 0.9rem 1rem;
+      line-height: 1.45;
+    }
+    .takeaway-pill strong {
+      display: block;
+      color: var(--sv-ink);
+      margin-bottom: 0.18rem;
+    }
+    .takeaway-pill span {
+      color: var(--sv-muted);
+      font-size: 0.94rem;
+    }
+    .takeaway-pill.red { background: var(--sv-red-soft); border-color: var(--sv-red-mid); }
+    .takeaway-pill.blue { background: var(--sv-blue-soft); border-color: var(--sv-blue-mid); }
+
     .analysis-card { padding: 1.35rem; }
     .analysis-card.good { border-top: 5px solid var(--sv-green); background: linear-gradient(180deg, #f0fff5, #ffffff 55%); }
     .analysis-card.bad { border-top: 5px solid var(--sv-red); background: linear-gradient(180deg, var(--sv-red-soft), #ffffff 55%); }
@@ -769,7 +843,7 @@
           </div>
 
           <h1 class="title is-1 publication-title">
-            SVHalluc: Benchmarking Speech-Vision Hallucination in Audio-Visual Large Language Models
+            SVHalluc: Benchmarking Speech–Vision Hallucination in Audio-Visual Large Language Models
           </h1>
 
           <div class="is-size-5 publication-authors">
@@ -871,7 +945,7 @@
         Unlike environmental sounds that mainly indicate event occurrence, human speech carries rich semantics and temporal structures. Despite the advancement of audio-visual large language models in video understanding, it remains underexplored whether current models can accurately align speech content with corresponding visual signals. In this work, we show that speech content can induce hallucinations in audio-visual LLMs, where models generate inaccurate or misleading outputs by confusing what is said with what is visually supported.
       </p>
       <p>
-        We introduce <strong>SVHalluc</strong>, a comprehensive benchmark for evaluating speech-vision hallucination in audio-visual LLMs. SVHalluc diagnoses hallucinations from two complementary perspectives: <strong>semantic grounding</strong>, which asks what speech content is visible, and <strong>temporal grounding</strong>, which asks when narrated actions visually occur. Experimental results show that current audio-visual LLMs still struggle to ground speech in vision, revealing a fundamental limitation of cross-modal speech-video understanding.
+        We introduce <strong>SVHalluc</strong>, a comprehensive benchmark for evaluating speech–vision hallucination in audio-visual LLMs. SVHalluc diagnoses hallucinations from two complementary perspectives: <strong>semantic grounding</strong>, which asks what speech content is visible, and <strong>temporal grounding</strong>, which asks when narrated actions visually occur. Experimental results show that current audio-visual LLMs still struggle to ground speech in vision, revealing a fundamental limitation of cross-modal speech-video understanding.
       </p>
     </div>
   </div>
@@ -1142,7 +1216,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Dataset Statistics</h2>
     <p class="section-kicker has-text-centered">
-      SVHalluc provides balanced and human-verified samples for diagnosing speech-vision hallucination.
+      SVHalluc provides balanced and human-verified samples for diagnosing speech–vision hallucination.
     </p>
 
     <div class="columns is-multiline is-variable is-4">
@@ -1170,49 +1244,62 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Main Results</h2>
     <p class="section-kicker has-text-centered">
-      Current audio-visual LLMs still struggle with speech-vision grounding, even when they can process both video and audio inputs.
+      SVHalluc reveals substantial speech–vision hallucination in current audio-visual LLMs. Instead of presenting only textual takeaways, we visualize both the overall model performance and task-wise difficulty.
     </p>
 
-    <div class="columns is-variable is-4">
-      <div class="column">
-        <div class="result-card">
-          <div class="result-index">1</div>
-          <h4 class="title is-5">AV-LLMs perform poorly on SVHalluc</h4>
-          <p>Open-source models perform near random on multiple tasks. Commercial models perform better, but still hallucinate.</p>
+    <div class="results-visual-card">
+      <div class="results-visual-header">
+        <div>
+          <h3 class="title is-4">Audio-visual LLMs perform poorly on SVHalluc</h3>
+          <p class="mini-note">Semantic and temporal average accuracy across evaluated models, with random baselines shown as dashed lines.</p>
         </div>
+        <span class="results-badge"><i class="fas fa-chart-bar"></i> Overall Performance</span>
       </div>
-      <div class="column">
-        <div class="result-card">
-          <div class="result-index">2</div>
-          <h4 class="title is-5">Global alignment is difficult</h4>
-          <p>Models can be better at object-level grounding, but still fail to judge whether speech globally matches the video.</p>
+      <div class="results-figure">
+        <img src="static/images/results_overall.png" alt="Overall semantic and temporal accuracy of audio-visual LLMs on SVHalluc.">
+      </div>
+      <div class="takeaway-strip">
+        <div class="takeaway-pill red">
+          <strong>Open-source models</strong>
+          <span>Perform near random on multiple tasks.</span>
         </div>
-      </div>
-      <div class="column">
-        <div class="result-card">
-          <div class="result-index">3</div>
-          <h4 class="title is-5">Temporal grounding remains challenging</h4>
-          <p>Models often confuse narrated events with what is happening visually at the current speech moment.</p>
+        <div class="takeaway-pill blue">
+          <strong>Commercial models</strong>
+          <span>Perform better, but still hallucinate.</span>
+        </div>
+        <div class="takeaway-pill">
+          <strong>Best model</strong>
+          <span>Gemini 2.5 Pro achieves the strongest average performance.</span>
         </div>
       </div>
     </div>
 
-    <!-- Optional: export these figures from your slides/poster and place them under static/images/. -->
-    <div class="columns is-variable is-5" style="margin-top: 1.2rem;">
-      <div class="column">
-        <div class="figure-box">
-          <img src="static/images/results_overall.png" alt="SVHalluc overall model performance." onerror="this.closest('.figure-box').style.display='none';">
+    <div class="results-visual-card">
+      <div class="results-visual-header">
+        <div>
+          <h3 class="title is-4">Which tasks are most challenging?</h3>
+          <p class="mini-note">Accuracy gain over random choice highlights where models struggle most across the six diagnostic tasks.</p>
         </div>
+        <span class="results-badge semantic"><i class="fas fa-table"></i> Task-wise Analysis</span>
       </div>
-      <div class="column">
-        <div class="figure-box">
-          <img src="static/images/results_task_heatmap.png" alt="SVHalluc task-wise gain over random heatmap." onerror="this.closest('.figure-box').style.display='none';">
+      <div class="results-figure">
+        <img src="static/images/results_task_heatmap.png" alt="Task-wise accuracy gain over random choice on SVHalluc.">
+      </div>
+      <div class="takeaway-strip">
+        <div class="takeaway-pill red">
+          <strong>Global alignment is hard</strong>
+          <span>GSA is more challenging than fine-grained object grounding for most models.</span>
+        </div>
+        <div class="takeaway-pill blue">
+          <strong>Temporal reasoning is fragile</strong>
+          <span>TA and TF remain close to random for several models.</span>
+        </div>
+        <div class="takeaway-pill">
+          <strong>Cross-modal binding matters</strong>
+          <span>Models need to bind speech to the correct visual event, not just recognize words.</span>
         </div>
       </div>
     </div>
-    <p class="caption has-text-centered">
-      Suggested figures: overall semantic/temporal accuracy and task-wise gain over random chance.
-    </p>
   </div>
 </section>
 
@@ -1220,7 +1307,7 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Why Do Models Fail?</h2>
     <p class="section-kicker has-text-centered">
-      Our analysis suggests that speech-vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
+      Our analysis suggests that speech–vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
     </p>
 
     <div class="columns is-variable is-5">
@@ -1247,7 +1334,7 @@
     </div>
 
     <div class="callout has-text-centered" style="margin-top: 1.5rem;">
-      Strong speech perception does not guarantee reliable <span class="highlight-blue">speech-vision integration</span>.
+      Strong speech perception does not guarantee reliable <span class="highlight-blue">speech–vision integration</span>.
     </div>
   </div>
 </section>
