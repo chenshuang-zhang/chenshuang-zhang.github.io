@@ -487,6 +487,85 @@
     .metric-pill.green { color: var(--sv-green); }
     .metric-pill.red { color: var(--sv-red); }
 
+    .analysis-visual-card {
+      border-radius: 24px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+      padding: 1rem;
+      overflow: hidden;
+    }
+    .analysis-visual-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+    .analysis-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-weight: 900;
+      font-size: 0.9rem;
+      border: 1px solid var(--sv-line);
+      background: #ffffff;
+    }
+    .analysis-badge.good {
+      color: var(--sv-green);
+      background: #f0fff5;
+      border-color: #cfeedd;
+    }
+    .analysis-badge.bad {
+      color: var(--sv-red);
+      background: var(--sv-red-soft);
+      border-color: var(--sv-red-mid);
+    }
+    .analysis-arrow {
+      color: var(--sv-muted);
+      font-weight: 900;
+    }
+    .analysis-visual-card img {
+      display: block;
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+    }
+    .analysis-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+    .analysis-mini-card {
+      border-radius: 17px;
+      padding: 0.95rem 1.05rem;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+      line-height: 1.45;
+    }
+    .analysis-mini-card strong {
+      display: block;
+      color: var(--sv-ink);
+      margin-bottom: 0.2rem;
+    }
+    .analysis-mini-card span {
+      color: var(--sv-muted);
+      font-size: 0.94rem;
+    }
+    .analysis-mini-card.good {
+      background: #f0fff5;
+      border-color: #cfeedd;
+    }
+    .analysis-mini-card.bad {
+      background: var(--sv-red-soft);
+      border-color: var(--sv-red-mid);
+    }
+
     .resource-card {
       padding: 1.1rem;
       display: flex;
@@ -778,6 +857,310 @@
       font-size: 0.94rem;
     }
     .answer-note strong { color: var(--sv-ink); }
+
+
+    /* Redesigned task examples: fixed video/speech preview + grouped task selector */
+    .task-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+    .task-preview,
+    .task-selector {
+      border-radius: 24px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      box-shadow: var(--sv-shadow);
+    }
+    .task-preview {
+      padding: 1.35rem;
+      overflow: hidden;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .task-preview.semantic {
+      background: linear-gradient(180deg, #ffffff 0%, var(--sv-red-soft) 100%);
+      border-color: #ffdcdc;
+    }
+    .task-preview.temporal {
+      background: linear-gradient(180deg, #ffffff 0%, var(--sv-blue-soft) 100%);
+      border-color: #cfe6ff;
+    }
+    .task-preview-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .task-preview-head h3 { margin-bottom: 0.15rem !important; }
+    .task-preview-head p {
+      margin-bottom: 0;
+      color: var(--sv-muted);
+      font-weight: 700;
+    }
+    .task-mode-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.55rem;
+    }
+    .task-mode-pill.semantic { color: var(--sv-red); background: #ffe6e6; }
+    .task-mode-pill.temporal { color: var(--sv-blue); background: #dff0ff; }
+    .preview-abbr {
+      min-width: 64px;
+      height: 54px;
+      padding: 0 0.65rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      flex: 0 0 auto;
+    }
+    .preview-abbr.semantic { color: var(--sv-red); background: #ffe2e2; }
+    .preview-abbr.temporal { color: var(--sv-blue); background: #dff0ff; }
+    .frame-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      padding: 0.65rem;
+      border-radius: 20px;
+      background: #111827;
+      box-shadow: 0 14px 28px rgba(17, 24, 39, 0.16);
+    }
+    .video-frame-card {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #000;
+      min-height: 160px;
+    }
+    .video-frame-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 16 / 10;
+    }
+    .video-frame-card figcaption {
+      position: absolute;
+      left: 0.55rem;
+      bottom: 0.55rem;
+      right: 0.55rem;
+      padding: 0.38rem 0.5rem;
+      border-radius: 10px;
+      background: rgba(17, 24, 39, 0.78);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      backdrop-filter: blur(4px);
+    }
+    .waveform-bars {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 0.34rem;
+      margin: 0.9rem 0 0.8rem;
+      padding: 0 0.25rem;
+    }
+    .waveform-bars span {
+      display: block;
+      width: 5px;
+      height: 18px;
+      border-radius: 999px;
+      background: #4b5563;
+      opacity: 0.9;
+    }
+    .waveform-bars span:nth-child(3n) { height: 36px; }
+    .waveform-bars span:nth-child(4n) { height: 26px; }
+    .waveform-bars span:nth-child(5n) { height: 42px; }
+    .speech-banner {
+      border-left: 5px solid #f6c344;
+      background: #fffbeb;
+      border-radius: 0 18px 18px 0;
+      padding: 0.95rem 1.05rem;
+      line-height: 1.55;
+      font-size: 1.02rem;
+    }
+    .speech-banner mark {
+      background: #fff0a3;
+      color: inherit;
+      border-radius: 5px;
+      padding: 0.05rem 0.2rem;
+      font-weight: 900;
+    }
+    .task-selector {
+      padding: 1.1rem;
+      background: #f8fafc;
+    }
+    .task-family {
+      border-radius: 20px;
+      padding: 0.9rem;
+      margin-bottom: 0.9rem;
+      border: 1px solid var(--sv-line);
+      background: #ffffff;
+    }
+    .task-family.semantic-family { border-top: 5px solid var(--sv-red); }
+    .task-family.temporal-family { border-top: 5px solid var(--sv-blue); }
+    .task-family-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .task-family-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      font-weight: 900;
+    }
+    .semantic-family .task-family-icon { color: var(--sv-red); background: #ffe2e2; }
+    .temporal-family .task-family-icon { color: var(--sv-blue); background: #dff0ff; }
+    .task-family h4 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+    .task-family p {
+      margin: 0.12rem 0 0;
+      color: var(--sv-muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+    .task-choice {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 0.7rem;
+      align-items: center;
+      text-align: left;
+      border: 1px solid var(--sv-line);
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 0.68rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      margin-bottom: 0.55rem;
+      color: var(--sv-ink);
+      font-family: inherit;
+    }
+    .task-choice:last-child { margin-bottom: 0; }
+    .task-choice:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(31, 41, 55, 0.10);
+    }
+    .task-choice.semantic.is-active {
+      border-color: #ffbaba;
+      background: var(--sv-red-soft);
+      box-shadow: 0 8px 20px rgba(214, 69, 69, 0.12);
+    }
+    .task-choice.temporal.is-active {
+      border-color: #abd7ff;
+      background: var(--sv-blue-soft);
+      box-shadow: 0 8px 20px rgba(44, 127, 184, 0.12);
+    }
+    .task-choice-abbr {
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+    .task-choice.semantic .task-choice-abbr { color: var(--sv-red); background: #ffe2e2; }
+    .task-choice.temporal .task-choice-abbr { color: var(--sv-blue); background: #dff0ff; }
+    .task-choice strong {
+      display: block;
+      font-size: 0.94rem;
+      line-height: 1.18;
+    }
+    .task-choice small {
+      display: block;
+      margin-top: 0.13rem;
+      color: var(--sv-muted);
+      font-size: 0.78rem;
+    }
+    .question-card {
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid var(--sv-line);
+      padding: 1rem;
+    }
+    .question-label {
+      color: var(--sv-muted);
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.55rem;
+    }
+    .question-text {
+      font-size: 1.08rem;
+      line-height: 1.42;
+      font-weight: 850;
+      margin-bottom: 0.75rem;
+    }
+    .options-list {
+      display: grid;
+      gap: 0.52rem;
+      margin-bottom: 0.8rem;
+    }
+    .options-list .option {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border-radius: 14px;
+      border: 1px solid var(--sv-line);
+      background: #f8fafc;
+      padding: 0.62rem 0.75rem;
+      font-weight: 800;
+    }
+    .options-list .option.correct {
+      border-color: #8bd8a2;
+      background: #effff4;
+      color: var(--sv-green);
+    }
+    .options-list .letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #e5e7eb;
+      color: #4b5563;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+    .options-list .correct .letter {
+      background: var(--sv-green);
+      color: #ffffff;
+    }
+
+    @media screen and (max-width: 900px) {
+      .task-showcase { grid-template-columns: 1fr; }
+    }
+    @media screen and (max-width: 640px) {
+      .frame-row { grid-template-columns: 1fr; }
+      .task-preview-head { flex-direction: column; }
+      .task-choice { grid-template-columns: 52px 1fr; }
+    }
+
     @media screen and (max-width: 768px) {
       .publication-title { font-size: 2rem !important; }
       .section { padding-top: 3rem; padding-bottom: 3rem; }
@@ -788,6 +1171,7 @@
       .fake-frame { min-height: 120px; }
       .sample-head { align-items: flex-start; flex-direction: column; }
       .resource-card { align-items: flex-start; flex-direction: column; }
+      .analysis-mini-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -862,7 +1246,7 @@
           <div class="publication-links">
             <!-- Replace placeholder hrefs with the final URLs when available. -->
             <span class="link-block">
-              <a href="https://chenshuang-zhang.github.io/projects/svhalluc/" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://arxiv.org/pdf/2606.02642" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
               </a>
             </span>
@@ -1022,195 +1406,101 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Task Examples</h2>
     <p class="section-kicker has-text-centered">
-      Select a task to see how SVHalluc turns a speech-video pair into a diagnostic question. The layout follows the oral-slide style: visual evidence and speech on the left, task-specific question on the right.
+      Each example keeps the <strong>speech-video pair</strong> fixed on the left and lets readers choose a diagnostic task on the right. Semantic tasks ask whether speech content is visually supported; temporal tasks ask when narrated events occur visually.
     </p>
 
-    <div class="example-tabs" role="tablist" aria-label="SVHalluc task examples">
-      <button class="example-tab semantic is-active" data-tab="gsa">GSA</button>
-      <button class="example-tab semantic" data-tab="fgsa">FGSA</button>
-      <button class="example-tab semantic" data-tab="cmsb">CMSB</button>
-      <button class="example-tab temporal" data-tab="ta">TA</button>
-      <button class="example-tab temporal" data-tab="tf">TF</button>
-      <button class="example-tab temporal" data-tab="cmtb">CMTB</button>
-    </div>
-
-    <div class="example-panel is-active" id="example-gsa">
-      <div class="sample-layout">
-        <div class="sample-media semantic">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Global Semantic Alignment</h3>
-            <span class="sample-badge semantic"><i class="fas fa-eye"></i> Semantic</span>
+    <div class="task-showcase">
+      <div class="task-preview" id="task-preview">
+        <div class="task-preview-head">
+          <div>
+            <span class="task-mode-pill semantic" id="demo-mode"><i class="fas fa-eye"></i> Semantic</span>
+            <h3 class="title is-4" id="demo-title">Global Semantic Alignment</h3>
+            <p id="demo-subtitle">Video-level semantic matching</p>
           </div>
-          <div class="video-strip">
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visual context</span></div>
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Speech-video mismatch</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “I’m going to turn the heat back to medium-low and place the <mark>first slice of bread</mark> in...”</div>
+          <div class="preview-abbr semantic" id="demo-abbr">GSA</div>
         </div>
-        <div class="sample-question">
-          <span class="example-tag semantic">GSA · Video-level matching</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">Does the speech describe the visual events in the video?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Yes</span></div>
-              <div class="option correct"><span class="letter">B</span><span>No</span></div>
-            </div>
-            <div class="answer-note"><strong>Goal:</strong> judge the global correspondence between speech and the whole video, rather than assuming narration is visual evidence.</div>
-          </div>
+
+        <div class="frame-row" aria-label="Video frames">
+          <figure class="video-frame-card">
+            <img id="demo-frame-a" src="static/images/examples/semantic_frame1.png" alt="Example video frame 1">
+            <figcaption id="demo-frame-a-label">Visual frame</figcaption>
+          </figure>
+          <figure class="video-frame-card">
+            <img id="demo-frame-b" src="static/images/examples/semantic_frame2.png" alt="Example video frame 2">
+            <figcaption id="demo-frame-b-label">Later visual frame</figcaption>
+          </figure>
+        </div>
+
+        <div class="waveform-bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="speech-banner" id="demo-speech">
+          <strong>Speech:</strong> “I’m going to turn the heat back to medium-low and place the <mark>first slice of bread</mark> in. Now what I’m going to do is lay the <mark>cheddar cheese</mark> over the top.”
         </div>
       </div>
-    </div>
 
-    <div class="example-panel" id="example-fgsa">
-      <div class="sample-layout">
-        <div class="sample-media semantic">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Fine-Grained Semantic Alignment</h3>
-            <span class="sample-badge semantic"><i class="fas fa-search"></i> Semantic</span>
-          </div>
-          <div class="video-strip">
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visible evidence</span></div>
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Target object check</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “...place the first <mark>slice of bread</mark> in. Now I’m going to lay the cheddar cheese over the top.”</div>
-        </div>
-        <div class="sample-question">
-          <span class="example-tag semantic">FGSA · Object-level grounding</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">Is the slice of bread visible in the video?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Yes</span></div>
-              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+      <aside class="task-selector" aria-label="Task selector">
+        <div class="task-family semantic-family">
+          <div class="task-family-head">
+            <span class="task-family-icon"><i class="fas fa-eye"></i></span>
+            <div>
+              <h4>Semantic Tasks</h4>
+              <p>What speech content is visible?</p>
             </div>
-            <div class="answer-note"><strong>Goal:</strong> evaluate whether the model checks visual evidence for a spoken object.</div>
           </div>
+          <button class="task-choice semantic is-active" data-tab="gsa">
+            <span class="task-choice-abbr">GSA</span>
+            <span><strong>Global Semantic Alignment</strong><small>Video-level matching</small></span>
+          </button>
+          <button class="task-choice semantic" data-tab="fgsa">
+            <span class="task-choice-abbr">FGSA</span>
+            <span><strong>Fine-Grained Semantic Alignment</strong><small>Object-level grounding</small></span>
+          </button>
+          <button class="task-choice semantic" data-tab="cmsb">
+            <span class="task-choice-abbr">CMSB</span>
+            <span><strong>Cross-Modal Semantic Binding</strong><small>Event-level matching</small></span>
+          </button>
         </div>
-      </div>
-    </div>
 
-    <div class="example-panel" id="example-cmsb">
-      <div class="sample-layout">
-        <div class="sample-media semantic">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Cross-Modal Semantic Binding</h3>
-            <span class="sample-badge semantic"><i class="fas fa-link"></i> Semantic</span>
-          </div>
-          <div class="video-strip">
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Spoken event</span></div>
-            <div class="fake-frame semantic-frame"><span class="frame-status no">×</span><span class="frame-label">Visual event</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “Now what I’m going to do is lay the <mark>cheddar cheese</mark> over the top.”</div>
-        </div>
-        <div class="sample-question">
-          <span class="example-tag semantic">CMSB · Event-level binding</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">Is the following event visible in the video: cook cheddar cheese until it becomes soft?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Yes</span></div>
-              <div class="option correct"><span class="letter">B</span><span>No</span></div>
+        <div class="task-family temporal-family">
+          <div class="task-family-head">
+            <span class="task-family-icon"><i class="fas fa-clock"></i></span>
+            <div>
+              <h4>Temporal Tasks</h4>
+              <p>When does the narrated event occur?</p>
             </div>
-            <div class="answer-note"><strong>Goal:</strong> test event-level binding beyond detecting related words such as “cheese.”</div>
           </div>
+          <button class="task-choice temporal" data-tab="ta">
+            <span class="task-choice-abbr">TA</span>
+            <span><strong>Temporal Alignment</strong><small>Same-time matching</small></span>
+          </button>
+          <button class="task-choice temporal" data-tab="tf">
+            <span class="task-choice-abbr">TF</span>
+            <span><strong>Temporal Forecasting</strong><small>Past / present / future</small></span>
+          </button>
+          <button class="task-choice temporal" data-tab="cmtb">
+            <span class="task-choice-abbr">CMTB</span>
+            <span><strong>Cross-Modal Temporal Binding</strong><small>Current action selection</small></span>
+          </button>
         </div>
-      </div>
-    </div>
 
-    <div class="example-panel" id="example-ta">
-      <div class="sample-layout">
-        <div class="sample-media temporal">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Temporal Alignment</h3>
-            <span class="sample-badge temporal"><i class="fas fa-clock"></i> Temporal</span>
+        <div class="question-card" id="demo-question-card">
+          <div class="question-label" id="demo-question-label">GSA · Question</div>
+          <div class="question-text" id="demo-question">Does the speech describe the visual events in the video?</div>
+          <div class="options-list" id="demo-options">
+            <div class="option"><span class="letter">A</span><span>Yes</span></div>
+            <div class="option correct"><span class="letter">B</span><span>No</span></div>
           </div>
-          <div class="video-strip">
-            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Speech moment</span></div>
-            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Narrated event time</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “Bag with about a third of a cup of <mark>flour</mark>.”</div>
+          <p class="answer-note" id="demo-goal"><strong>Goal:</strong> judge global correspondence between the speech and the whole video.</p>
         </div>
-        <div class="sample-question">
-          <span class="example-tag temporal">TA · Same-time matching</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">When the speech is heard, is the narrated event happening at the same time in the video?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Yes</span></div>
-              <div class="option correct"><span class="letter">B</span><span>No</span></div>
-            </div>
-            <div class="answer-note"><strong>Goal:</strong> verify whether the spoken event is visually occurring at the current speech timestamp.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="example-panel" id="example-tf">
-      <div class="sample-layout">
-        <div class="sample-media temporal">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Temporal Forecasting</h3>
-            <span class="sample-badge temporal"><i class="fas fa-forward"></i> Temporal</span>
-          </div>
-          <div class="video-strip">
-            <div class="fake-frame temporal-frame"><span class="frame-status yes">✓</span><span class="frame-label">Current moment</span></div>
-            <div class="fake-frame temporal-frame"><span class="frame-status no">→</span><span class="frame-label">Future visual event</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “<mark>Bag the meat with flour</mark>.”</div>
-        </div>
-        <div class="sample-question">
-          <span class="example-tag temporal">TF · Past / Present / Future</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">Relative to the moment when the speech is heard, when does the narrated event occur in the video?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Past</span></div>
-              <div class="option"><span class="letter">B</span><span>Present</span></div>
-              <div class="option correct"><span class="letter">C</span><span>Future</span></div>
-            </div>
-            <div class="answer-note"><strong>Goal:</strong> reason over the visual timeline relative to the speech moment.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="example-panel" id="example-cmtb">
-      <div class="sample-layout">
-        <div class="sample-media temporal">
-          <div class="sample-head">
-            <h3 class="title is-4 sample-title">Cross-Modal Temporal Binding</h3>
-            <span class="sample-badge temporal"><i class="fas fa-random"></i> Temporal</span>
-          </div>
-          <div class="video-strip">
-            <div class="fake-frame temporal-frame"><span class="frame-status yes">✓</span><span class="frame-label">Current visual action</span></div>
-            <div class="fake-frame temporal-frame"><span class="frame-status no">×</span><span class="frame-label">Nearby spoken content</span></div>
-          </div>
-          <div class="waveform" aria-hidden="true"></div>
-          <div class="transcript-card"><strong>Speech:</strong> “Each cube or a bunch? I would do it with <mark>several at a time</mark>.”</div>
-        </div>
-        <div class="sample-question">
-          <span class="example-tag temporal">CMTB · Current action selection</span>
-          <div class="slide-like-question">
-            <div class="question-label">Question</div>
-            <div class="question-text">When the speech is heard, what visual action is occurring in the video?</div>
-            <div class="options-grid">
-              <div class="option"><span class="letter">A</span><span>Put seasoned meat in a zip lock bag with flour</span></div>
-              <div class="option"><span class="letter">B</span><span>Add cloves, bay leaves, thyme, parsley, and wine</span></div>
-              <div class="option correct"><span class="letter">C</span><span>Season diced beef pieces with salt and pepper</span></div>
-            </div>
-            <div class="answer-note"><strong>Goal:</strong> distinguish the action currently visible from actions mentioned in nearby speech.</div>
-          </div>
-        </div>
-      </div>
+      </aside>
     </div>
   </div>
 </section>
+
 
 <section class="section" id="dataset">
   <div class="container is-max-desktop">
@@ -1253,7 +1543,7 @@
           <h3 class="title is-4">Audio-visual LLMs perform poorly on SVHalluc</h3>
           <p class="mini-note">Semantic and temporal average accuracy across evaluated models, with random baselines shown as dashed lines.</p>
         </div>
-        <span class="results-badge"><i class="fas fa-chart-bar"></i> Overall Performance</span>
+        <span class="results-badge"><i class="fas fa-chart-column"></i> Overall Performance</span>
       </div>
       <div class="results-figure">
         <img src="static/images/results_overall.png" alt="Overall semantic and temporal accuracy of audio-visual LLMs on SVHalluc.">
@@ -1280,7 +1570,7 @@
           <h3 class="title is-4">Which tasks are most challenging?</h3>
           <p class="mini-note">Accuracy gain over random choice highlights where models struggle most across the six diagnostic tasks.</p>
         </div>
-        <span class="results-badge semantic"><i class="fas fa-table"></i> Task-wise Analysis</span>
+        <span class="results-badge semantic"><i class="fas fa-table-cells"></i> Task-wise Analysis</span>
       </div>
       <div class="results-figure">
         <img src="static/images/results_task_heatmap.png" alt="Task-wise accuracy gain over random choice on SVHalluc.">
@@ -1294,10 +1584,6 @@
           <strong>Temporal reasoning is fragile</strong>
           <span>TA and TF remain close to random for several models.</span>
         </div>
-        <div class="takeaway-pill">
-          <strong>Cross-modal binding matters</strong>
-          <span>Models need to bind speech to the correct visual event, not just recognize words.</span>
-        </div>
       </div>
     </div>
   </div>
@@ -1307,29 +1593,30 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered section-title">Why Do Models Fail?</h2>
     <p class="section-kicker has-text-centered">
-      Our analysis suggests that speech–vision hallucination is not merely a speech perception problem. The key bottleneck is cross-modal integration.
+      The failure is not simply caused by poor speech recognition. Models can perceive speech, but still struggle to verify whether the spoken content is grounded in the video.
     </p>
 
-    <div class="columns is-variable is-5">
-      <div class="column">
-        <div class="analysis-card good">
-          <h3 class="title is-4">Speech perception is strong</h3>
-          <p>Models can recognize most speech content and localize when speech is heard.</p>
-          <div style="margin-top: 0.9rem;">
-            <span class="metric-pill green">WER: 0.09 ↓</span>
-            <span class="metric-pill green">mIoU: 0.88 ↑</span>
-          </div>
-        </div>
+    <div class="analysis-visual-card">
+      <div class="analysis-visual-header">
+        <span class="analysis-badge good"><i class="fas fa-check-circle"></i> Speech perception works</span>
+        <span class="analysis-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="analysis-badge bad"><i class="fas fa-exclamation-circle"></i> Cross-modal grounding fails</span>
       </div>
-      <div class="column">
-        <div class="analysis-card bad">
-          <h3 class="title is-4">Cross-modal integration is weak</h3>
-          <p>Adding transcripts helps some tasks, but does not solve the core alignment problem. Models still struggle to decide whether the narrated content is visually supported.</p>
-          <div style="margin-top: 0.9rem;">
-            <span class="metric-pill red">Transcript ≠ grounding</span>
-            <span class="metric-pill red">Speech ≠ evidence</span>
-          </div>
-        </div>
+      <img src="static/images/analysis_bottleneck.png" alt="Analysis figure showing that speech perception is strong but cross-modal integration remains weak.">
+    </div>
+
+    <div class="analysis-mini-grid">
+      <div class="analysis-mini-card good">
+        <strong>Speech recognition is reliable</strong>
+        <span>Most speech content is recognized, with WER = 0.09.</span>
+      </div>
+      <div class="analysis-mini-card good">
+        <strong>Speech timing is localized</strong>
+        <span>The speech timestamp can be localized with mIoU = 0.88.</span>
+      </div>
+      <div class="analysis-mini-card bad">
+        <strong>Transcript is not enough</strong>
+        <span>Adding transcripts helps some tasks, but does not solve speech–vision alignment.</span>
       </div>
     </div>
 
@@ -1423,17 +1710,108 @@
       });
     });
 
-    const tabs = document.querySelectorAll('.example-tab');
-    const panels = document.querySelectorAll('.example-panel');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-tab');
-        tabs.forEach(t => t.classList.remove('is-active'));
-        panels.forEach(p => p.classList.remove('is-active'));
-        tab.classList.add('is-active');
-        document.getElementById('example-' + target).classList.add('is-active');
+    const taskData = {
+      gsa: {
+        type: 'semantic', abbr: 'GSA', title: 'Global Semantic Alignment', subtitle: 'Video-level semantic matching',
+        frameA: 'static/images/examples/semantic_frame1.png', frameB: 'static/images/examples/semantic_frame2.png',
+        frameALabel: 'Visual context', frameBLabel: 'Later visual frame',
+        speech: '<strong>Speech:</strong> “I’m going to turn the heat back to medium-low and place the <mark>first slice of bread</mark> in. Now what I’m going to do is lay the <mark>cheddar cheese</mark> over the top.”',
+        questionLabel: 'GSA · Question',
+        question: 'Does the speech describe the visual events in the video?',
+        options: [['A', 'Yes', false], ['B', 'No', true]],
+        goal: '<strong>Goal:</strong> judge global correspondence between the speech and the whole video.'
+      },
+      fgsa: {
+        type: 'semantic', abbr: 'FGSA', title: 'Fine-Grained Semantic Alignment', subtitle: 'Object-level semantic grounding',
+        frameA: 'static/images/examples/semantic_frame1.png', frameB: 'static/images/examples/semantic_frame2.png',
+        frameALabel: 'Visible evidence', frameBLabel: 'Target object check',
+        speech: '<strong>Speech:</strong> “...place the first <mark>slice of bread</mark> in. Now I’m going to lay the cheddar cheese over the top.”',
+        questionLabel: 'FGSA · Question',
+        question: 'Is the slice of bread visible in the video?',
+        options: [['A', 'Yes', false], ['B', 'No', true]],
+        goal: '<strong>Goal:</strong> verify whether a spoken object is visually present.'
+      },
+      cmsb: {
+        type: 'semantic', abbr: 'CMSB', title: 'Cross-Modal Semantic Binding', subtitle: 'Event-level semantic matching',
+        frameA: 'static/images/examples/semantic_frame1.png', frameB: 'static/images/examples/semantic_frame2.png',
+        frameALabel: 'Spoken event context', frameBLabel: 'Visual event evidence',
+        speech: '<strong>Speech:</strong> “Now what I’m going to do is lay the <mark>cheddar cheese</mark> over the top.”',
+        questionLabel: 'CMSB · Question',
+        question: 'Is the following event visible in the video: cook cheddar cheese until it becomes soft?',
+        options: [['A', 'Yes', false], ['B', 'No', true]],
+        goal: '<strong>Goal:</strong> test event-level binding beyond detecting related words.'
+      },
+      ta: {
+        type: 'temporal', abbr: 'TA', title: 'Temporal Alignment', subtitle: 'Same-time speech-video matching',
+        frameA: 'static/images/examples/temporal_frame1.png', frameB: 'static/images/examples/temporal_frame2.png',
+        frameALabel: 'Speech moment', frameBLabel: 'Narrated event time',
+        speech: '<strong>Speech:</strong> “Bag with about a third of a cup of <mark>flour</mark>.”',
+        questionLabel: 'TA · Question',
+        question: 'When the speech is heard, is the narrated event happening at the same time in the video?',
+        options: [['A', 'Yes', false], ['B', 'No', true]],
+        goal: '<strong>Goal:</strong> verify whether the spoken event is visually occurring at the current speech timestamp.'
+      },
+      tf: {
+        type: 'temporal', abbr: 'TF', title: 'Temporal Forecasting', subtitle: 'Past / present / future reasoning',
+        frameA: 'static/images/examples/temporal_frame1.png', frameB: 'static/images/examples/temporal_frame2.png',
+        frameALabel: 'Current speech moment', frameBLabel: 'Future visual event',
+        speech: '<strong>Speech:</strong> “<mark>Bag the meat with flour</mark>.”',
+        questionLabel: 'TF · Question',
+        question: 'Relative to the moment when the speech is heard, when does the narrated event occur in the video?',
+        options: [['A', 'Past', false], ['B', 'Present', false], ['C', 'Future', true]],
+        goal: '<strong>Goal:</strong> reason over the visual timeline relative to the speech moment.'
+      },
+      cmtb: {
+        type: 'temporal', abbr: 'CMTB', title: 'Cross-Modal Temporal Binding', subtitle: 'Current visual action selection',
+        frameA: 'static/images/examples/temporal_frame1.png', frameB: 'static/images/examples/temporal_frame2.png',
+        frameALabel: 'Current visual action', frameBLabel: 'Nearby spoken content',
+        speech: '<strong>Speech:</strong> “Each cube or a bunch? I would do it with <mark>several at a time</mark>. Get them in there.”',
+        questionLabel: 'CMTB · Question',
+        question: 'When the speech is heard, what visual action is occurring in the video?',
+        options: [['A', 'Put seasoned meat in a zip lock bag with flour', false], ['B', 'Add cloves, bay leaves, thyme, parsley, and wine', false], ['C', 'Season diced beef pieces with salt and pepper', true]],
+        goal: '<strong>Goal:</strong> distinguish the currently visible action from actions mentioned in nearby speech.'
+      }
+    };
+
+    const setTask = (key) => {
+      const data = taskData[key];
+      if (!data) return;
+      const isSemantic = data.type === 'semantic';
+      const mode = document.getElementById('demo-mode');
+      const abbr = document.getElementById('demo-abbr');
+      const preview = document.getElementById('task-preview');
+
+      preview.classList.remove('semantic', 'temporal');
+      preview.classList.add(data.type);
+      mode.className = 'task-mode-pill ' + data.type;
+      mode.innerHTML = (isSemantic ? '<i class="fas fa-eye"></i> Semantic' : '<i class="fas fa-clock"></i> Temporal');
+      abbr.className = 'preview-abbr ' + data.type;
+      abbr.textContent = data.abbr;
+
+      document.getElementById('demo-title').textContent = data.title;
+      document.getElementById('demo-subtitle').textContent = data.subtitle;
+      document.getElementById('demo-frame-a').src = data.frameA;
+      document.getElementById('demo-frame-b').src = data.frameB;
+      document.getElementById('demo-frame-a-label').textContent = data.frameALabel;
+      document.getElementById('demo-frame-b-label').textContent = data.frameBLabel;
+      document.getElementById('demo-speech').innerHTML = data.speech;
+      document.getElementById('demo-question-label').textContent = data.questionLabel;
+      document.getElementById('demo-question').textContent = data.question;
+      document.getElementById('demo-goal').innerHTML = data.goal;
+      document.getElementById('demo-options').innerHTML = data.options.map(([letter, text, correct]) =>
+        `<div class="option${correct ? ' correct' : ''}"><span class="letter">${letter}</span><span>${text}</span></div>`
+      ).join('');
+
+      document.querySelectorAll('.task-choice').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.tab === key);
       });
+    };
+
+    document.querySelectorAll('.task-choice').forEach(btn => {
+      btn.addEventListener('click', () => setTask(btn.dataset.tab));
     });
+
+    setTask('gsa');
   });
 </script>
 
