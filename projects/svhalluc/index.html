@@ -472,6 +472,15 @@
     .takeaway-pill.red { background: var(--sv-red-soft); border-color: var(--sv-red-mid); }
     .takeaway-pill.blue { background: var(--sv-blue-soft); border-color: var(--sv-blue-mid); }
 
+
+    /* Single takeaway strip for task-wise heatmap */
+    .takeaway-strip.single-takeaway {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .analysis-card { padding: 1.35rem; }
     .analysis-card.good { border-top: 5px solid var(--sv-green); background: linear-gradient(180deg, #f0fff5, #ffffff 55%); }
     .analysis-card.bad { border-top: 5px solid var(--sv-red); background: linear-gradient(180deg, var(--sv-red-soft), #ffffff 55%); }
@@ -1577,14 +1586,10 @@
       <div class="results-figure">
         <img src="static/images/results_task_heatmap.png" alt="Task-wise accuracy gain over random choice on SVHalluc.">
       </div>
-      <div class="takeaway-strip">
+      <div class="takeaway-strip single-takeaway">
         <div class="takeaway-pill red">
           <strong>Global alignment is hard</strong>
           <span>GSA is more challenging than fine-grained object grounding for most models.</span>
-        </div>
-        <div class="takeaway-pill blue">
-          <strong>Temporal reasoning is fragile</strong>
-          <span>TA and TF remain close to random for several models.</span>
         </div>
       </div>
     </div>
@@ -1598,6 +1603,7 @@
       The failure is not simply caused by poor speech recognition. Models can perceive speech, but still struggle to verify whether the spoken content is grounded in the video.
     </p>
 
+    <!--
     <div class="analysis-visual-card">
       <div class="analysis-visual-header">
         <span class="analysis-badge good"><i class="fas fa-check-circle"></i> Speech perception works</span>
@@ -1606,6 +1612,7 @@
       </div>
       <img src="static/images/analysis_bottleneck.png" alt="Analysis figure showing that speech perception is strong but cross-modal integration remains weak.">
     </div>
+    -->
 
     <div class="analysis-mini-grid">
       <div class="analysis-mini-card good">
